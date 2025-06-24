@@ -16,45 +16,67 @@ main {
     height: 100vh;
 }
 
-.view-port {
+main .view-port {
     background: #3a70c3; /* 배경 파란색 */;
     width: 60%;
-    height: 1000px;
+    height: 600px;
     display: flex;
     justify-content: space-around;
     align-items: center;
 
 }
 
-.left-box {
+main .view-port .left-box {
     display: flex;
     flex-direction: column;
-    gap: 350px;
+    gap: 150px;
 
 }
 
-.button {
-    width: 400px;
+main .view-port .left-box .content {
+    width: 300px;
+    height: 150px;
+    /*background-color: #f47c3c; !* 오렌지색 *!*/
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*border: 1px solid black;*/
+    /*box-shadow: 2px 2px 5px rgba(0,0,0,0.2);*/
+}
+
+main .view-port .left-box .start-button {
+    width: 300px;
     height: 150px;
     background-color: #f47c3c; /* 오렌지색 */
     color: white;
-    font-size: 50px;
+    font-size: 40px;
     font-weight: bold;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid black;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    border-radius: 30px;
 }
 
-.main-image {
-    width: 500px;
-    height: 700px;
+main .view-port .left-box .start-button:hover {
+    background: #2980b9;
+    /* 손모양 커서! */
+    cursor: pointer;
+}
+
+
+main .view-port .main-image {
+    width: 400px;
+    height: 500px;
     background-color: #ffc107; /* 노란색 */
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 50px;
+    font-size: 40px;
     font-weight: bold;
     color: white;
     border: 1px solid black;
