@@ -11,4 +11,4 @@ bug: 작업 내용 <br>
 ex) feat: 지도 마커 표시 기능 구현
 
 **파일 구조**<br>
-<pre> index.html ├── css/ │ └── main.css ├── js/ │ ├── app.js │ └── submodule/ │ ├── dom.js │ ├── event.js │ ├── catch.js │ └── fish.js </pre>
+```text index.html ├── css/ │ └── main.css ├── js/ │ ├── app.js │ └── submodule/ │ ├── dom.js │ ├── event.js │ ├── catch.js │ └── fish.js ``` 
