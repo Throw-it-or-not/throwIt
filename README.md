@@ -9,3 +9,13 @@ feat: 작업 내용 <br>
 fix: 작업 내용 <br>
 bug: 작업 내용 <br>
 ex) feat: 지도 마커 표시 기능 구현
+
+**파일 구조**<br>
+index.html <br>
+| <br>
+| css / main.css <br>
+| js / app.js <br>
+    / submodule / dom.js <br>
+                / event.js <br>
+                / catch.js <br>
+                / fish.js <br>
