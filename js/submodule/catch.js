@@ -8,7 +8,7 @@ import elements from './dom.js';
  * @param {number} fishNumber - 물고기 번호 (1~5)
  * @param {(score: number) => void} [onFinished] - 게임 종료 후 호출될 콜백 함수. 점수를 인자로 받습니다.
  */
-function updateModalUI(fishNumber, onFinished) {
+export function updateModalUI(fishNumber, onFinished) {
 
   // DOM 디스트럭쳐링
   const {
@@ -188,12 +188,3 @@ function timeOver(timerId) {
   timerId = null;
 }
 
-
-// 앱을 시작하는 함수
-export function start() {
-  const randomNumber = Math.floor(Math.random() * 5) + 1;
-  updateModalUI(randomNumber, (finalScore) => {
-    console.log(`🎯 최종 점수: ${finalScore}`);
-    // 여기서 이후 UI 업데이트나 게임 진행 가능
-  });
-}

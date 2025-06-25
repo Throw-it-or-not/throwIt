@@ -1,4 +1,5 @@
 // ======= DOM 가져오기 ======== //
+const $modalOverlay = document.getElementById('modal-overlay');
 const $gaugeBar = document.getElementById('gauge-bar');
 const $message = document.getElementById('message');
 const $clickBtn = document.getElementById('modal-click-btn');
@@ -10,6 +11,7 @@ const $fish = document.querySelector('.fish-btn');
 const $seaBg = document.getElementById('sea-bg');
 
 export default {
+    $modalOverlay,
     $gaugeBar,
     $message,
     $clickBtn,
