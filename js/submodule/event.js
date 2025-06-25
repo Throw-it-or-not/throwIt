@@ -12,7 +12,7 @@ export function bindEvents() {
     $todoForm,
     $startBtn,
     $viewPort,
-    $seaWrapper
+    $sea
   } = elements;
 
 
@@ -22,7 +22,7 @@ export function bindEvents() {
     $viewPort.style.display = 'none';
 
     // 바다 스테이지 화면 불러오기
-    $seaWrapper.style.display = 'block';
+    $sea.style.display = 'block';
 
   });
 

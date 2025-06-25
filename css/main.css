@@ -13,13 +13,16 @@ body{
     justify-content: center;
     align-items: center;
 }
+#throwit-wrap{
+    width: 60%;
+    height: 600px;
+}
 
 /* ================== 메인 화면 ================== */
 .view-port {
+    height: 100%;
     background-image: url(/image/bg_sea.png);
     background-size: contain;
-    width: 60%;
-    height: 600px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -79,8 +82,7 @@ body{
 /* ================== 바다 스테이지 ================== */
 #sea-wrapper{
     display: none;
-    width: 60%;
-    height: 600px;
+    height: 100%;
     margin: auto;
     background-color: #1E86E8;
     position: relative;
@@ -129,14 +131,13 @@ body{
 
 /* ================== 낚시 모달 ================== */
 #modal-overlay {
-    position: absolute;
-    height: 600px;
-    width: 60%;
+    height: 100%;
     margin: auto;
     background: rgba(0, 0, 0, 0.3);
     display: none;
     justify-content: center;
     align-items: center;
+    position: absolute;
     z-index: 1;
 }
 #modal-content {
