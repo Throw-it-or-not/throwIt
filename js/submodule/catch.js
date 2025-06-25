@@ -21,6 +21,9 @@ function updateModalUI(fishNumber) {
 
   // ======== 상태관리 변수 및 상수 ======== //
 
+  // 한 번의 클릭 당 증가하는 게이지 양
+  const incGaugeMount = 5;
+
   // 한 번에 감소하는 게이지 양
   const decGaugeMount = 8;
 
@@ -32,6 +35,9 @@ function updateModalUI(fishNumber) {
 
   // 감소 타이머
   let decTimerId = null;
+
+  // 클릭 확인 변수 0: 좌클릭, 2: 우클릭
+  let expectedClick = 0;
 
   // 낚시 게이지 표현
   $gaugeBar.style.height = `${curPercent}%`;
@@ -56,6 +62,30 @@ function updateModalUI(fishNumber) {
     // 게이지 색상 업데이트 함수
     updateGaugeColor($gaugeBar, curPercent);
   }, 1000);
+
+  // ======== 이벤트 리스너 설정 ========== //
+
+  // 좌/우 클릭 번갈아가며 게이지 증가
+  $clickBtn.addEventListener('mousedown', (e) => {
+    e.preventDefault(); // 기본 동작 방지 (특히 우클릭 메뉴)
+
+    // 클릭 순서가 맞을 때만 진행
+    if (e.button === expectedClick && curPercent < 100) {
+      curPercent += incGaugeMount;
+      if (curPercent > 100) curPercent = 100;
+      $gaugeBar.style.height = `${curPercent}%`;
+
+      // 게이지 색상 업데이트 함수
+      updateGaugeColor($gaugeBar, curPercent);
+
+      // 다음에 눌러야 할 클릭 반전
+      expectedClick = expectedClick === 0 ? 2 : 0;
+
+    }
+  });
+
+  // 우클릭 메뉴 막기
+  document.addEventListener('contextmenu', (e) => e.preventDefault());
 
 }
 
