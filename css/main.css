@@ -129,6 +129,7 @@ body{
 
 /* ================== 낚시 모달 ================== */
 #modal-overlay {
+    position: absolute;
     height: 600px;
     width: 60%;
     margin: auto;
@@ -136,6 +137,7 @@ body{
     display: none;
     justify-content: center;
     align-items: center;
+    z-index: 1;
 }
 #modal-content {
     width: 60%;
@@ -181,12 +183,12 @@ body{
 }
 
 .guide-line {
-    position: absolute;
     width: 100%;
     height: 2px;
     background-color: rgba(0, 0, 0, 0.5);
     left: 0;
-    z-index: 2; /* 게이지 바보다 위에 있도록 설정 */
+    position: absolute;
+    z-index: 3; /* 게이지 바보다 위에 있도록 설정 */
 }
 .guide-70 {
     bottom: 70%;
@@ -202,7 +204,7 @@ body{
     height: 20%;
     background-color: #4caf50;
     transition: height 0.3s ease;
-    z-index: 1; /* 가이드 라인보다 아래 */
+    z-index: 2; /* 가이드 라인보다 아래 */
 }
 
 #modal-click-btn {

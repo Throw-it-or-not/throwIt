@@ -89,7 +89,6 @@ export function start() {
         stopped = true;
 
         $modalOverlay.style.display = 'flex';
-        $sea.style.display = 'none';
 
         updateModalUI(1, (finalScore) => {
             console.log(`🎯 최종 점수: ${finalScore}`);
