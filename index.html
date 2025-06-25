@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Title</title>
+  <title>ThrowIt!</title>
   <link rel="stylesheet" href="css/main.css">
   <script type="module" src="js/app.js" defer></script>
 </head>
 <body>
+  <main>
+    <div class="view-port">
+        <div class="left-box">
+            <div class="content">깊은 바다의 전설</div>
+            <button class="start-button">게임시작</button>
+        </div>
+        <div class="main-image">
+            메인 화면<br>그림
+        </div>
+    </div>
+  </main>
   <div id="modal-container">
     <div class="modal-overlay" id="modal-overlay">
       <div class="modal-content" id="modal-content">
@@ -30,5 +42,21 @@
       </div>
     </div>
   </div>
+  <script>
+
+    //=========== DOM ===========//
+    const $startBtn = document.querySelector('main .view-port .left-box .start-button');
+
+    // ======= 이벤트 바인딩 ========//
+
+    //게임시작 버튼 이벤트
+    $startBtn.addEventListener('click', e => {
+      // 바다 스테이지 화면 불러오기
+      console.log('start button click!');
+
+    });
+
+  </script>
+
 </body>
 </html>
