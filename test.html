@@ -94,6 +94,7 @@
 
         let intervalId = null;
         let timerId = null;
+        let stopped = false;
 
         const seaWidth = $sea.offsetWidth;
         const seaHeight = $sea.offsetHeight;
@@ -126,29 +127,32 @@
         }
 
         function showFish(){
-            const x = Math.floor(Math.floor(Math.random() * maxX) + 1);
-            const y = Math.floor(Math.floor(Math.random() * maxY) +1);
+            const x = Math.floor(Math.random() * maxX) + 1;
+            const y = Math.floor(Math.random() * maxY) +1;
 
-            setTimeout(() => {
+            timerId = setTimeout(() => {
 
-                makeFish();
+                if(!stopped){
 
-                $fish.style.left = `${x}px`;
-                $fish.style.top = `${y}px`;
+                    makeFish();
 
-                $fish.classList.add('show');
+                    $fish.style.left = `${x}px`;
+                    $fish.style.top = `${y}px`;
+
+                    $fish.classList.add('show');
+                }
 
             }, 1000)
 
         }
 
-        intervalId = setInterval(showFish, 1500);
+        intervalId = setInterval(showFish, 1000);
 
         $fish.addEventListener('click', e => {
             $seaBg.style.animationPlayState = 'paused';
             clearTimeout(timerId);
             clearInterval(intervalId);
-            console.log('click');
+            stopped = true;
         })
 
     </script>
