@@ -6,14 +6,134 @@
     padding: 0;
     box-sizing: border-box;
 }
-
-#modal-container {
+body{
+    height: 100vh;
     display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ================== 메인 화면 ================== */
+.view-port {
+    background-image: url(/image/bg_sea.png);
+    background-size: contain;
+    width: 60%;
+    height: 600px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.view-port .left-box {
+    display: flex;
+    flex-direction: column;
+    gap: 150px;
+}
+.view-port .left-box .content {
+    width: 300px;
+    height: 150px;
+    /*background-color: #f47c3c; !* 오렌지색 *!*/
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*border: 1px solid black;*/
+    /*box-shadow: 2px 2px 5px rgba(0,0,0,0.2);*/
+}
+.view-port .left-box .start-button {
+    width: 300px;
+    height: 150px;
+    background-color: #f47c3c; /* 오렌지색 */
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    border-radius: 30px;
+}
+.view-port .left-box .start-button:hover {
+    background: #2980b9;
+    /* 손모양 커서! */
+    cursor: pointer;
+}
+.view-port .main-image {
+    width: 400px;
+    height: 500px;
+    background-color: #ffc107; /* 노란색 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+    border: 1px solid black;
+    text-align: center;
+}
+
+/* ================== 바다 스테이지 ================== */
+#sea-wrapper{
+    display: none;
+    width: 60%;
+    height: 600px;
+    margin: auto;
+    background-color: #1E86E8;
+    position: relative;
+    overflow: hidden;
+}
+#sea-bg{
+    display: none;
+    width: 10000px;
+    height: 100%;
+    background-image: url('/image/bg_sea.png');
+    background-size: contain;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: move-sea infinite 80s linear;
+    animation-play-state: running;
+}
+@keyframes move-sea {
+    0%{
+        left: 0;
+    }
+    100%{
+        left: -100%;
+    }
+}
+#score-area{
+    width: 160px;
+    height: 80px;
+    background-color: red;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+.fish-btn{
+    width: 100px;
+    height: 60px;
+    cursor: pointer;
+    display: none;
+    position: absolute;
+    background-size: cover;
+    background-color: transparent;
+    background-position: center;
+}
+.show{
+    display: block;
+}
+
+/* ================== 낚시 모달 ================== */
+#modal-container {
+    display: none;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
-
 #modal-overlay {
     height: 600px;
     width: 60%;
@@ -23,7 +143,6 @@
     justify-content: center;
     align-items: center;
 }
-
 #modal-content {
     width: 60%;
     height: 80%;
@@ -33,7 +152,6 @@
     flex-direction: column;
     align-items: center;
 }
-
 #score-display {
     position: absolute;
     top: 20px;
@@ -51,7 +169,6 @@
     height: 300px;
     top: 70px;
 }
-
 #modal-fish-container img {
     width: 100%;
     object-fit: contain;
@@ -77,11 +194,9 @@
     left: 0;
     z-index: 2; /* 게이지 바보다 위에 있도록 설정 */
 }
-
 .guide-70 {
     bottom: 70%;
 }
-
 .guide-90 {
     bottom: 90%;
 }
@@ -107,89 +222,9 @@
     border-radius: 8px;
     cursor: pointer;
 }
-
 #modal-click-btn:disabled {
     background-color: #aaa;
     cursor: not-allowed;
 }
-
-
-main {
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /*background: darkgreen;*/
-    /*width: 100%;*/
-    height: 100vh;
-}
-
-main .view-port {
-    background: #3a70c3; /* 배경 파란색 */;
-    width: 60%;
-    height: 600px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-
-}
-
-main .view-port .left-box {
-    display: flex;
-    flex-direction: column;
-    gap: 150px;
-
-}
-
-main .view-port .left-box .content {
-    width: 300px;
-    height: 150px;
-    /*background-color: #f47c3c; !* 오렌지색 *!*/
-    color: white;
-    font-size: 40px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /*border: 1px solid black;*/
-    /*box-shadow: 2px 2px 5px rgba(0,0,0,0.2);*/
-}
-
-main .view-port .left-box .start-button {
-    width: 300px;
-    height: 150px;
-    background-color: #f47c3c; /* 오렌지색 */
-    color: white;
-    font-size: 40px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-    border-radius: 30px;
-}
-
-main .view-port .left-box .start-button:hover {
-    background: #2980b9;
-    /* 손모양 커서! */
-    cursor: pointer;
-}
-
-
-main .view-port .main-image {
-    width: 400px;
-    height: 500px;
-    background-color: #ffc107; /* 노란색 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 40px;
-    font-weight: bold;
-    color: white;
-    border: 1px solid black;
-    text-align: center;
-}
-
 
 
