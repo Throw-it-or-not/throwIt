@@ -9,6 +9,9 @@ const $modalWatch = document.getElementById('modal-watch');
 const $sea = document.getElementById('sea-wrapper');
 const $fish = document.querySelector('.fish-btn');
 const $seaBg = document.getElementById('sea-bg');
+const $startBtn = document.querySelector('.view-port .left-box .start-button');
+const $viewPort = document.querySelector('.view-port');
+const $seaWrapper = document.getElementById('sea-wrapper');
 
 export default {
     $modalOverlay,
@@ -20,5 +23,9 @@ export default {
     $modalWatch,
     $sea,
     $fish,
-    $seaBg
+    $seaBg,
+    $startBtn,
+    $viewPort,
+    $seaWrapper
+
 };

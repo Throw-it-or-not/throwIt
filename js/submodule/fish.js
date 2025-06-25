@@ -1,5 +1,6 @@
 import elements from './dom.js';
 import {updateModalUI} from "./catch.js";
+import {bindEvents} from "./event.js";
 
 
 
@@ -97,6 +98,8 @@ export function start() {
 
 
     })
+
+    bindEvents(); // 이벤트 실행
 
 
 }
