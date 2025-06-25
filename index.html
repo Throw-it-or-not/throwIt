@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThrowIt!</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+
+<header>
+
+</header>
+
+<main>
+    <div class="view-port">
+        <div class="left-box">
+            <div class="content">깊은 바다의 전설</div>
+            <button class="start-button">게임시작</button>
+        </div>
+        <div class="main-image">
+            메인 화면<br>그림
+        </div>
+    </div>
+</main>
+
+<footer>
+
+</footer>
+
+<script>
+
+    //=========== DOM ===========//
+    const $startBtn = document.querySelector('main .view-port .left-box .start-button');
+
+    // ======= 이벤트 바인딩 ========//
+
+    //게임시작 버튼 이벤트
+    $startBtn.addEventListener('click', e => {
+      // 바다 스테이지 화면 불러오기
+      console.log('start button click!');
+
+    });
+
+</script>
+
+</body>
+</html>
