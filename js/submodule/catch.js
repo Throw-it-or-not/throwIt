@@ -18,6 +18,10 @@ export function updateModalUI(fishNumber, onFinished) {
     $scoreDisplay,
     $modalGameContents,
     $modalWatch,
+    $resultBox,
+    $resultMessage,
+    $resultScore,
+    $resultCloseBtn,
   } = elements;
 
   // ======== 상태관리 변수 및 상수 ======== //
@@ -59,7 +63,7 @@ export function updateModalUI(fishNumber, onFinished) {
   // 지정된 시간이 지난 후 게임 종료
   setTimeout(() => {
     timeOver(decTimerId);
-    resultScore = handleFishingResult(curPercent, $scoreDisplay, $clickBtn, fishingScore);
+    resultScore = handleFishingResult(curPercent, $scoreDisplay, $clickBtn, fishingScore, $resultBox, $resultMessage, $resultScore);
 
     // 게임 끝났으니 콜백 호출
     if (typeof onFinished === 'function') {
@@ -160,19 +164,25 @@ function updateGaugeColor($gaugeBar, currentPercent) {
  * @param $display - 점수를 기록하는 요소 노드 (후에 삭제 예정)
  * @param $clickBtn - 게이지 변경 버튼 요소 노드
  * @param score - 반환할 점수
+ * @param $resultBox - 결과 정보를 나타낼 창의 요소 노드
+ * @param $resultMessage - 결과 메시지 요소 노드
  * @returns {number} 점수
  */
-function handleFishingResult(currentPercent, $display, $clickBtn, score) {
+function handleFishingResult(currentPercent, $display, $clickBtn, score, $resultBox, $resultMessage, $resultScore) {
 
   $clickBtn.disabled = true;
 
   // 현재 게이지가 70 이상 90 이하 = 성공, 이외 실패
   if (currentPercent >= 70 && currentPercent <= 90) { // 성공
     $display.textContent = `점수: ${score}점`;
-    alert('성공');
+    $resultBox.style.display = 'block';
+    $resultMessage.textContent = '🎉 성공!';
+    $resultScore.textContent = `획득 점수: ${score}점`
   } else {  // 실패
     score = 0;
-    alert('실패');
+    $resultBox.style.display = 'block';
+    $resultMessage.textContent = '😢 실패!';
+    $resultScore.textContent = `획득 점수: ${score}점`
   }
 
   return score;
