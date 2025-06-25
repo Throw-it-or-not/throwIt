@@ -14,15 +14,16 @@ export function start() {
         $sea,
         $fish,
         $seaBg,
-        $modalOverlay
+        $modalOverlay,
+        $thowitWrap
     } = elements;
 
     let intervalId = null;
     let timerId = null;
     let stopped = false;
 
-    const seaWidth = $sea.offsetWidth;
-    const seaHeight = $sea.offsetHeight;
+    const seaWidth = $thowitWrap.offsetWidth;
+    const seaHeight = $thowitWrap.offsetHeight;
 
     const maxX = seaWidth - $fish.offsetWidth - 100;
     const maxY = seaHeight - $fish.offsetHeight - 100;
