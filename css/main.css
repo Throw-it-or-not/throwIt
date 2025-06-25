@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#modal-overlay {
+    height: 600px;
+    width: 60%;
+    margin: auto;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#modal-content {
+    width: 60%;
+    height: 80%;
+    background: #7f9aee;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#score-display {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* 물고기 이미지 */
+#modal-fish-container {
+    border: 2px solid #000;
+    position: absolute;
+    width: 70%;
+    height: 300px;
+    top: 70px;
+}
+
+#modal-fish-container img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.gauge-container {
+    position: absolute;
+    top: 70px; /* 물고기와 같은 y좌표로 맞춤 */
+    right: 26px;
+    width: 60px;
+    height: 300px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+    overflow: hidden;
+}
+
+.guide-line {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.5);
+    left: 0;
+    z-index: 2; /* 게이지 바보다 위에 있도록 설정 */
+}
+
+.guide-70 {
+    bottom: 70%;
+}
+
+.guide-90 {
+    bottom: 90%;
+}
+
+#gauge-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 20%;
+    background-color: #4caf50;
+    transition: height 0.3s ease;
+    z-index: 1; /* 가이드 라인보다 아래 */
+}
+
+#modal-click-btn {
+    position: absolute;
+    bottom: 25px;
+    padding: 15px 30px;
+    font-size: 20px;
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#modal-click-btn:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+
+
+
