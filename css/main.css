@@ -78,7 +78,7 @@ body{
 
 /* ================== 바다 스테이지 ================== */
 #sea-wrapper{
-    display: block;
+    display: none;
     width: 60%;
     height: 600px;
     margin: auto;
