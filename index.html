@@ -10,44 +10,45 @@
   <script type="module" src="js/app.js" defer></script>
 </head>
 <body>
-    <!-- 인트로 화면 -->
-    <div class="view-port">
-        <div class="left-box">
-            <div class="content">깊은 바다의 전설</div>
-            <button class="start-button">게임시작</button>
-        </div>
-        <div class="main-image">
-            메인 화면<br>그림
-        </div>
-    </div>
-
-    <!-- 바다 스테이지 화면-->
-    <div id="sea-wrapper">
-        <div id="sea-bg"></div>
-        <button class="fish-btn"></button>
-        <div id="score-area"></div>
-    </div>
-
-
-    <!-- 낚시 모달 -->
-    <div class="modal-overlay" id="modal-overlay">
-        <div class="modal-content" id="modal-content">
-            <div id="score-display">점수: 0점</div>
-
-            <div id="modal-fish-container">
-              <img src="#" alt="물고기"/>
+    <div id="throwit-wrap">
+        <!-- 인트로 화면 -->
+        <div class="view-port">
+            <div class="left-box">
+                <div class="content">깊은 바다의 전설</div>
+                <button class="start-button">게임시작</button>
             </div>
-
-            <div class="gauge-container">
-              <div class="guide-line guide-70"></div>
-              <div class="guide-line guide-90"></div>
-              <div class="gauge-bar" id="gauge-bar"></div>
+            <div class="main-image">
+                메인 화면<br>그림
             </div>
+        </div>
 
-            <button id="modal-click-btn">클릭!</button>
-            <div id="modal-watch"></div>
+        <!-- 바다 스테이지 화면-->
+        <div id="sea-wrapper">
+            <div id="sea-bg"></div>
+            <button class="fish-btn"></button>
+            <div id="score-area"></div>
+        </div>
+
+
+        <!-- 낚시 모달 -->
+        <div class="modal-overlay" id="modal-overlay">
+            <div class="modal-content" id="modal-content">
+                <div id="score-display">점수: 0점</div>
+
+                <div id="modal-fish-container">
+                    <img src="#" alt="물고기"/>
+                </div>
+
+                <div class="gauge-container">
+                    <div class="guide-line guide-70"></div>
+                    <div class="guide-line guide-90"></div>
+                    <div class="gauge-bar" id="gauge-bar"></div>
+                </div>
+
+                <button id="modal-click-btn">클릭!</button>
+                <div id="modal-watch"></div>
+            </div>
         </div>
     </div>
-
 </body>
 </html>

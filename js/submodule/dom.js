@@ -11,7 +11,7 @@ const $fish = document.querySelector('.fish-btn');
 const $seaBg = document.getElementById('sea-bg');
 const $startBtn = document.querySelector('.view-port .left-box .start-button');
 const $viewPort = document.querySelector('.view-port');
-const $seaWrapper = document.getElementById('sea-wrapper');
+const $thowitWrap = document.getElementById('throwit-wrap');
 
 export default {
     $modalOverlay,
@@ -26,6 +26,6 @@ export default {
     $seaBg,
     $startBtn,
     $viewPort,
-    $seaWrapper
+    $thowitWrap
 
 };
