@@ -210,6 +210,8 @@ function setLevel(fishNumber) {
  * @description 게이지 색상 업데이트 함수
  * @param $gaugeBar - 색상을 변화시킬 게이지 바 요소 노드
  * @param currentPercent - 현재 낚시대 게이지 %
+ * @param successMin - 게임 성공 범위 최소값
+ * @param successMax - 게임 성공 범위 최대값
  */
 function updateGaugeColor($gaugeBar, currentPercent, successMin, successMax) {
   if (currentPercent > successMax) {
