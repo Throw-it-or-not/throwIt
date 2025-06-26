@@ -57,7 +57,7 @@ export function updateModalUI(fishNumber, onFinished) {
       decGaugeAmount: 8,
       incGaugeAmount: 5,
       intervalMs: 600,
-      successRange: [78, 85],
+      successRange: [70, 85],
       timeLimit: 5000,
       startPercent: 40,
     }
@@ -91,13 +91,16 @@ export function updateModalUI(fishNumber, onFinished) {
   let resultScore = 0;
 
   // 낚시 게이지 표현
+  $gaugeBar.style.transition = 'none'; // 깜빡임 방지
   $gaugeBar.style.height = `${startPercent}%`;
+  // 게이지 색상 업데이트 함수
+  updateGaugeColor($gaugeBar, curPercent, successMin, successMax);
+  void $gaugeBar.offsetHeight; // 강제 리플로우
+  $gaugeBar.style.transition = ''; // transition 복원
   $guideLineMin.style.bottom = `${successMin}%`;
   $guideLineMax.style.bottom = `${successMax}%`;
   console.log(successMin);
 
-  // 게이지 색상 업데이트 함수
-  updateGaugeColor($gaugeBar, curPercent, successMin, successMax);
   
   // 낚시 게임 버튼 초기화(활성화)
   $clickBtn.disabled = false;
