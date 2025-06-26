@@ -32,7 +32,7 @@ body{
 .view-port .left-box {
     display: flex;
     flex-direction: column;
-    gap: 150px;
+    gap: 30px;
 }
 .view-port .left-box .content {
     width: 300px;
@@ -47,9 +47,52 @@ body{
     /*border: 1px solid black;*/
     /*box-shadow: 2px 2px 5px rgba(0,0,0,0.2);*/
 }
+
+.view-port .left-box .score-log-button {
+    width: 300px;
+    height: 100px;
+    background-color: #f47c3c; /* 오렌지색 */
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    border-radius: 30px;
+}
+
+.view-port .left-box .score-log-button:hover {
+    background: #2980b9;
+    /* 손모양 커서! */
+    cursor: pointer;
+}
+
+.view-port .left-box .description-button {
+    width: 300px;
+    height: 100px;
+    background-color: #f47c3c; /* 오렌지색 */
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    border-radius: 30px;
+}
+
+.view-port .left-box .description-button:hover {
+    background: #2980b9;
+    /* 손모양 커서! */
+    cursor: pointer;
+}
+
 .view-port .left-box .start-button {
     width: 300px;
-    height: 150px;
+    height: 100px;
     background-color: #f47c3c; /* 오렌지색 */
     color: white;
     font-size: 40px;
@@ -78,6 +121,36 @@ body{
     color: white;
     border: 1px solid black;
     text-align: center;
+}
+
+/* ================== 게임 설명 화면 ================== */
+#game-description-screen {
+    height: 100%;
+    background-size: contain;
+    background: #ffff;
+    border: 2px solid #808080;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+}
+
+#game-description-screen #home-button {
+    width: 300px;
+    height: 100px;
+    background-color: #f47c3c; /* 오렌지색 */
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    border: 1px solid black;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    border-radius: 30px;
+}
+#game-description-screen #home-button:hover {
+    background: #2980b9;
+    /* 손모양 커서! */
+    cursor: pointer;
 }
 
 /* ================== 바다 스테이지 ================== */
