@@ -1,5 +1,4 @@
 import elements from './dom.js';
-import {start} from './fish.js';
 
 
 // ======== 함수 정의 ========= //
@@ -164,9 +163,6 @@ export function updateModalUI(fishNumber, onFinished) {
   $resultCloseBtn.addEventListener('click', e => {
     $modalOverlay.style.display = 'none';
     $resultBox.style.display = 'none';
-
-    const restart = start();
-    restart();
   });
 }
 

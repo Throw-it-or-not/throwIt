@@ -21,6 +21,7 @@ export function start() {
     let intervalId = null;
     let timerId = null;
     let stopped = false;
+    let totalScore = 0;
 
     const seaWidth = $thowitWrap.offsetWidth;
     const seaHeight = $thowitWrap.offsetHeight;
@@ -84,19 +85,14 @@ export function start() {
     }
 
     function writeLog(score) {
-        console.log(score)
+        totalScore += score
         const $p = document.createElement('p');
-        $p.textContent = score;
+        $p.textContent = totalScore;
         $p.classList.add('score');
         $scoreArea.append($p);
     }
 
-    function reStart(){
 
-        console.log('재시작');
-        $seaBg.style.animationPlayState = 'running';
-        start();
-    }
 
     // ======== 이벤트 리스너 설정 ========== //
 
@@ -126,10 +122,8 @@ export function start() {
             writeLog(finalScore);
         });
 
-
     })
 
-    return reStart;
 
 }
 
