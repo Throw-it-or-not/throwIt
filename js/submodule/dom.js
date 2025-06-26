@@ -15,6 +15,8 @@ const $resultBox = document.getElementById('result-box');
 const $resultMessage = document.getElementById('result-message');
 const $resultScore = document.getElementById('result-score');
 const $resultCloseBtn = document.getElementById('result-close-btn');
+const $guideLineMin = document.querySelector('.guide-line.guide-70');
+const $guideLineMax = document.querySelector('.guide-line.guide-90');
 
 export default {
     $modalOverlay,
@@ -33,4 +35,6 @@ export default {
     $resultMessage,
     $resultScore,
     $resultCloseBtn,
+    $guideLineMin,
+    $guideLineMax,
 };

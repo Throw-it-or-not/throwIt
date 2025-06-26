@@ -22,6 +22,8 @@ export function updateModalUI(fishNumber, onFinished) {
     $resultScore,
     $resultCloseBtn,
     $modalOverlay,
+    $guideLineMin,
+    $guideLineMax,
   } = elements;
 
   // ======== 상태관리 변수 및 상수 ======== //
@@ -90,6 +92,9 @@ export function updateModalUI(fishNumber, onFinished) {
 
   // 낚시 게이지 표현
   $gaugeBar.style.height = `${startPercent}%`;
+  $guideLineMin.style.bottom = `${successMin}%`;
+  $guideLineMax.style.bottom = `${successMax}%`;
+  console.log(successMin);
 
   // 게이지 색상 업데이트 함수
   updateGaugeColor($gaugeBar, curPercent, successMin, successMax);
