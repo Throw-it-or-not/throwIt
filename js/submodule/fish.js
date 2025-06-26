@@ -3,9 +3,6 @@ import {updateModalUI} from "./catch.js";
 import {bindEvents} from "./event.js";
 
 
-
-
-
 // 앱을 시작하는 함수
 export function start() {
 
@@ -15,7 +12,7 @@ export function start() {
         $fish,
         $seaBg,
         $modalOverlay,
-        $thowitWrap
+        $thowitWrap,
     } = elements;
 
     let intervalId = null;
@@ -81,7 +78,11 @@ export function start() {
 
     }
 
-    intervalId = setInterval(showFish, 1000);
+    intervalId = setInterval(() => {
+        if($sea.style.display === 'block'){
+            showFish();
+        }
+    }, 1000);
 
     $fish.addEventListener('click', e => {
         $seaBg.style.animationPlayState = 'paused';
