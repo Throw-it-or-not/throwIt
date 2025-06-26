@@ -137,15 +137,15 @@ export function updateModalUI(fishNumber, onFinished) {
  */
 function getFishScore(fishNumber) {
   switch (fishNumber) {
-    case 1:
+    case 0:
       return 10; // 물고기1: 작고 쉬움
-    case 2:
+    case 1:
       return 20;
-    case 3:
+    case 2:
       return 30;
-    case 4:
+    case 3:
       return 40;
-    case 5:
+    case 4:
       return 50; // 물고기5: 크고 어려움
     default:
       return 0;  // 예외 처리
@@ -174,6 +174,7 @@ function updateGaugeColor($gaugeBar, currentPercent) {
  * @param score - 반환할 점수
  * @param $resultBox - 결과 정보를 나타낼 창의 요소 노드
  * @param $resultMessage - 결과 메시지 요소 노드
+ * @param $resultScore - 게임 결과를 통해 변경되는 최종 점수
  * @returns {number} 점수
  */
 function handleFishingResult(currentPercent, $clickBtn, score, $resultBox, $resultMessage, $resultScore) {
