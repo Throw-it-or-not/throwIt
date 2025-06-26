@@ -30,35 +30,69 @@ export function updateModalUI(fishNumber, onFinished) {
   let fishingScore = getFishScore(fishNumber);
   console.log(fishingScore);
 
+  // 난이도별 세팅
+  const difficultySettings = {
+    easy: {
+      decGaugeAmount: 4,
+      incGaugeAmount: 7,
+      // 감소하는 인터벌의 간격
+      intervalMs: 1000,
+      // 성공 범위
+      successRange: [60, 90],
+      // 낚시 제한 시간
+      timeLimit: 5000,
+      startPercent: 50,
+    },
+    normal: {
+      decGaugeAmount: 5,
+      incGaugeAmount: 6,
+      intervalMs: 800,
+      successRange: [70, 90],
+      timeLimit: 5000,
+      startPercent: 50,
+    },
+    hard: {
+      decGaugeAmount: 8,
+      incGaugeAmount: 5,
+      intervalMs: 600,
+      successRange: [78, 85],
+      timeLimit: 5000,
+      startPercent: 40,
+    }
+  };
+
+  // 난이도 결정
+  const level = setLevel(fishNumber);
+  const config = difficultySettings[level];
   // 한 번의 클릭 당 증가하는 게이지 양
-  const incGaugeMount = 5;
-
+  const incGaugeMount = config.incGaugeAmount;
   // 한 번에 감소하는 게이지 양
-  const decGaugeMount = 8;
-
-  // 시작 낚시대 게이지
-  const startPercent = 40;
-
+  const decGaugeMount = config.decGaugeAmount;
+  // 시작 게이지 양
+  const startPercent = config.startPercent;
   // 현재 낚시대 게이지
-  let curPercent = 70;
-
+  let curPercent = startPercent;
+  // 성공 범위
+  const [successMin, successMax] = config.successRange;
   // 감소 타이머
   let decTimerId = null;
+  // 감소 타이머 인터벌 간격
+  const decTimerInterval = config.intervalMs;
 
   // 클릭 확인 변수 0: 좌클릭, 2: 우클릭
   let expectedClick = 0;
 
-  // 낚시 제한 시간
-  const setFishingTime = 5000;
+  // 종료 시간
+  const setFishingTime = config.timeLimit;
 
   // 결과 점수
   let resultScore = 0;
 
   // 낚시 게이지 표현
-  $gaugeBar.style.height = `${curPercent}%`;
+  $gaugeBar.style.height = `${startPercent}%`;
 
   // 게이지 색상 업데이트 함수
-  updateGaugeColor($gaugeBar, curPercent);
+  updateGaugeColor($gaugeBar, curPercent, successMin, successMax);
   
   // 낚시 게임 버튼 초기화(활성화)
   $clickBtn.disabled = false;
@@ -66,7 +100,8 @@ export function updateModalUI(fishNumber, onFinished) {
   // 지정된 시간이 지난 후 게임 종료
   setTimeout(() => {
     timeOver(decTimerId);
-    resultScore = handleFishingResult(curPercent, $clickBtn, fishingScore, $resultBox, $resultMessage, $resultScore);
+    resultScore = handleFishingResult(curPercent, $clickBtn, fishingScore, $resultBox, $resultMessage, $resultScore, successMin, successMax);
+    console.log(`decGaugeMount: ${decGaugeMount}`);
 
     // 게임 끝났으니 콜백 호출
     if (typeof onFinished === 'function') {
@@ -90,7 +125,7 @@ export function updateModalUI(fishNumber, onFinished) {
     }
     // 게이지 색상 업데이트 함수
     updateGaugeColor($gaugeBar, curPercent);
-  }, 1000);
+  }, decTimerInterval);
 
 
   // ======== 이벤트 리스너 설정 ========== //
@@ -106,16 +141,10 @@ export function updateModalUI(fishNumber, onFinished) {
       $gaugeBar.style.height = `${curPercent}%`;
 
       // 게이지 색상 업데이트 함수
-      updateGaugeColor($gaugeBar, curPercent);
+      updateGaugeColor($gaugeBar, curPercent, successMin, successMax);
 
       // 다음에 눌러야 할 클릭 반전
       expectedClick = expectedClick === 0 ? 2 : 0;
-
-      // 메시지 업데이트
-      // $modalWatch.textContent = '';
-      // if (curPercent === 100) {
-      //   $modalWatch.textContent = '물고기가 도망갔어요!';
-      // }
     }
   });
 
@@ -152,15 +181,32 @@ function getFishScore(fishNumber) {
   }
 }
 
+function setLevel(fishNumber) {
+  switch (fishNumber) {
+    case 0:
+      return 'easy';
+    case 1:
+      return 'easy';
+    case 2:
+      return 'normal';
+    case 3:
+      return 'normal';
+    case 4:
+      return 'hard';
+    default:
+      return 'easy';
+  }
+}
+
 /**
  * @description 게이지 색상 업데이트 함수
  * @param $gaugeBar - 색상을 변화시킬 게이지 바 요소 노드
  * @param currentPercent - 현재 낚시대 게이지 %
  */
-function updateGaugeColor($gaugeBar, currentPercent) {
-  if (currentPercent > 90) {
+function updateGaugeColor($gaugeBar, currentPercent, successMin, successMax) {
+  if (currentPercent > successMax) {
     $gaugeBar.style.backgroundColor = '#f44336'; // 빨강
-  } else if (currentPercent < 70) {
+  } else if (currentPercent < successMin) {
     $gaugeBar.style.backgroundColor = '#ffeb3b'; // 노랑
   } else {
     $gaugeBar.style.backgroundColor = '#4caf50'; // 초록 (기본)
@@ -177,12 +223,12 @@ function updateGaugeColor($gaugeBar, currentPercent) {
  * @param $resultScore - 게임 결과를 통해 변경되는 최종 점수
  * @returns {number} 점수
  */
-function handleFishingResult(currentPercent, $clickBtn, score, $resultBox, $resultMessage, $resultScore) {
+function handleFishingResult(currentPercent, $clickBtn, score, $resultBox, $resultMessage, $resultScore, successMin, successMax) {
 
   $clickBtn.disabled = true;
 
   // 현재 게이지가 70 이상 90 이하 = 성공, 이외 실패
-  if (currentPercent >= 70 && currentPercent <= 90) { // 성공
+  if (currentPercent >= successMin && currentPercent <= successMax) { // 성공
     $resultBox.style.display = 'block';
     $resultMessage.textContent = '🎉 성공!';
     $resultScore.textContent = `획득 점수: ${score}점`
