@@ -15,6 +15,7 @@ const $resultBox = document.getElementById('result-box');
 const $resultMessage = document.getElementById('result-message');
 const $resultScore = document.getElementById('result-score');
 const $resultCloseBtn = document.getElementById('result-close-btn');
+const $scoreArea = document.getElementById('score-area');
 const $descriptionBtn = document.querySelector('.view-port .left-box .description-button');
 const $gamDescriptionScreen = document.getElementById('game-description-screen');
 const $homeButton = document.querySelector('#game-description-screen #home-button');
@@ -40,7 +41,8 @@ export default {
     $resultCloseBtn,
     $descriptionBtn,
     $gamDescriptionScreen,
-    $homeButton
+    $homeButton,
     $guideLineMin,
     $guideLineMax,
+    $scoreArea,
 };

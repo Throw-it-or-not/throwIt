@@ -159,11 +159,7 @@ export function updateModalUI(fishNumber, onFinished) {
   // 우클릭 메뉴 막기
   document.addEventListener('contextmenu', (e) => e.preventDefault());
 
-  // 결과 창에서 닫기 버튼 누르면 결과 창과 모달 닫힘.
-  $resultCloseBtn.addEventListener('click', e => {
-    $modalOverlay.style.display = 'none';
-    $resultBox.style.display = 'none';
-  });
+
 }
 
 

@@ -190,12 +190,18 @@ body{
     }
 }
 #score-area{
-    width: 160px;
-    height: 80px;
-    background-color: red;
+    width: 200px;
+    height: 140px;
     position: absolute;
     right: 0;
     bottom: 0;
+    background-image: url('/image/score_bg.png');
+    background-size: cover;
+}
+.score{
+    font-size: 2em;
+    text-align: center;
+    line-height: 126px;
 }
 .fish-btn{
     width: 100px;
