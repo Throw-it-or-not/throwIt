@@ -83,7 +83,11 @@ export function start() {
 
     }
 
-    intervalId = setInterval(showFish, 1000);
+    intervalId = setInterval(() => {
+        if($sea.style.display === 'block'){
+            showFish();
+        }
+    }, 1000);
 
     $fish.addEventListener('click', e => {
         $seaBg.style.animationPlayState = 'paused';
