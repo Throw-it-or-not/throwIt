@@ -60,6 +60,9 @@ export function updateModalUI(fishNumber, onFinished) {
 
   // 게이지 색상 업데이트 함수
   updateGaugeColor($gaugeBar, curPercent);
+  
+  // 낚시 게임 버튼 초기화(활성화)
+  $clickBtn.disabled = false;
 
   // 지정된 시간이 지난 후 게임 종료
   setTimeout(() => {
