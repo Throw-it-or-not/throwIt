@@ -229,6 +229,8 @@ function updateGaugeColor($gaugeBar, currentPercent, successMin, successMax) {
  * @param $resultBox - 결과 정보를 나타낼 창의 요소 노드
  * @param $resultMessage - 결과 메시지 요소 노드
  * @param $resultScore - 게임 결과를 통해 변경되는 최종 점수
+ * @param successMin - 게임 성공 범위 최소값
+ * @param successMax - 게임 성공 범위 최대값
  * @returns {number} 점수
  */
 function handleFishingResult(currentPercent, $clickBtn, score, $resultBox, $resultMessage, $resultScore, successMin, successMax) {
