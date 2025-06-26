@@ -3,7 +3,6 @@ const $modalOverlay = document.getElementById('modal-overlay');
 const $gaugeBar = document.getElementById('gauge-bar');
 const $message = document.getElementById('message');
 const $clickBtn = document.getElementById('modal-click-btn');
-const $scoreDisplay = document.getElementById('score-display');
 const $modalGameContents = document.getElementById('modal-content');
 const $modalWatch = document.getElementById('modal-watch');
 const $sea = document.getElementById('sea-wrapper');
@@ -19,13 +18,14 @@ const $resultCloseBtn = document.getElementById('result-close-btn');
 const $descriptionBtn = document.querySelector('.view-port .left-box .description-button');
 const $gamDescriptionScreen = document.getElementById('game-description-screen');
 const $homeButton = document.querySelector('#game-description-screen #home-button');
+const $guideLineMin = document.querySelector('.guide-line.guide-70');
+const $guideLineMax = document.querySelector('.guide-line.guide-90');
 
 export default {
     $modalOverlay,
     $gaugeBar,
     $message,
     $clickBtn,
-    $scoreDisplay,
     $modalGameContents,
     $modalWatch,
     $sea,
@@ -41,4 +41,6 @@ export default {
     $descriptionBtn,
     $gamDescriptionScreen,
     $homeButton
+    $guideLineMin,
+    $guideLineMax,
 };

@@ -59,6 +59,8 @@ export function start() {
                 $fish.style.backgroundImage = species[4];
                 break;
         }
+
+        return random;
     }
 
     function showFish(){
@@ -81,7 +83,11 @@ export function start() {
 
     }
 
-    intervalId = setInterval(showFish, 1000);
+    intervalId = setInterval(() => {
+        if($sea.style.display === 'block'){
+            showFish();
+        }
+    }, 1000);
 
     $fish.addEventListener('click', e => {
         $seaBg.style.animationPlayState = 'paused';
@@ -91,7 +97,7 @@ export function start() {
 
         $modalOverlay.style.display = 'flex';
 
-        updateModalUI(1, (finalScore) => {
+        updateModalUI(makeFish(), (finalScore) => {
             console.log(`🎯 최종 점수: ${finalScore}`);
             // 여기서 이후 UI 업데이트나 게임 진행 가능
         });
