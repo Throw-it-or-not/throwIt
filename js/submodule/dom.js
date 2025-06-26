@@ -3,7 +3,6 @@ const $modalOverlay = document.getElementById('modal-overlay');
 const $gaugeBar = document.getElementById('gauge-bar');
 const $message = document.getElementById('message');
 const $clickBtn = document.getElementById('modal-click-btn');
-const $scoreDisplay = document.getElementById('score-display');
 const $modalGameContents = document.getElementById('modal-content');
 const $modalWatch = document.getElementById('modal-watch');
 const $sea = document.getElementById('sea-wrapper');
@@ -22,7 +21,6 @@ export default {
     $gaugeBar,
     $message,
     $clickBtn,
-    $scoreDisplay,
     $modalGameContents,
     $modalWatch,
     $sea,
