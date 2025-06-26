@@ -16,6 +16,7 @@ const $resultBox = document.getElementById('result-box');
 const $resultMessage = document.getElementById('result-message');
 const $resultScore = document.getElementById('result-score');
 const $resultCloseBtn = document.getElementById('result-close-btn');
+const $scoreArea = document.getElementById('score-area');
 
 export default {
     $modalOverlay,
@@ -35,4 +36,5 @@ export default {
     $resultMessage,
     $resultScore,
     $resultCloseBtn,
+    $scoreArea,
 };

@@ -3,11 +3,10 @@ import {updateModalUI} from "./catch.js";
 import {bindEvents} from "./event.js";
 
 
-
-
-
 // 앱을 시작하는 함수
 export function start() {
+
+    bindEvents(); // 이벤트 실행
 
     // DOM 디스트럭쳐링
     const {
@@ -15,7 +14,8 @@ export function start() {
         $fish,
         $seaBg,
         $modalOverlay,
-        $thowitWrap
+        $thowitWrap,
+        $scoreArea,
     } = elements;
 
     let intervalId = null;
@@ -81,6 +81,22 @@ export function start() {
 
     }
 
+    function writeLog(score) {
+        const $p = document.createElement('p');
+        $p.textContent = score;
+        $p.classList.add('score');
+        $scoreArea.append($p);
+    }
+
+    function reStart(){
+
+        console.log('재시작');
+        $seaBg.style.animationPlayState = 'play';
+        start();
+    }
+
+    // ======== 이벤트 리스너 설정 ========== //
+
     intervalId = setInterval(() => {
         if($sea.style.display === 'block'){
             showFish();
@@ -88,23 +104,28 @@ export function start() {
     }, 1000);
 
     $fish.addEventListener('click', e => {
-        $seaBg.style.animationPlayState = 'paused';
-        clearTimeout(timerId);
-        clearInterval(intervalId);
-        stopped = true;
 
-        $modalOverlay.style.display = 'flex';
+        stopped = true;
+        if(stopped){
+
+            $seaBg.style.animationPlayState = 'paused';
+            $fish.classList.remove('show');
+            clearTimeout(timerId);
+            clearInterval(intervalId);
+
+            $modalOverlay.style.display = 'flex';
+        }
 
         updateModalUI(1, (finalScore) => {
-            console.log(`🎯 최종 점수: ${finalScore}`);
             // 여기서 이후 UI 업데이트나 게임 진행 가능
+            stopped = false;
+            writeLog(finalScore);
         });
 
 
     })
 
-    bindEvents(); // 이벤트 실행
-
+    return reStart;
 
 }
 
