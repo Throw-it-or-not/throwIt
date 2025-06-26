@@ -84,6 +84,7 @@ export function start() {
     }
 
     function writeLog(score) {
+        console.log(score)
         const $p = document.createElement('p');
         $p.textContent = score;
         $p.classList.add('score');
@@ -93,7 +94,7 @@ export function start() {
     function reStart(){
 
         console.log('재시작');
-        $seaBg.style.animationPlayState = 'play';
+        $seaBg.style.animationPlayState = 'running';
         start();
     }
 

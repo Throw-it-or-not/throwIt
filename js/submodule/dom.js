@@ -38,4 +38,5 @@ export default {
     $resultCloseBtn,
     $guideLineMin,
     $guideLineMax,
+    $scoreArea,
 };
