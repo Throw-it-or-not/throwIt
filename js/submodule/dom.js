@@ -12,6 +12,10 @@ const $seaBg = document.getElementById('sea-bg');
 const $startBtn = document.querySelector('.view-port .left-box .start-button');
 const $viewPort = document.querySelector('.view-port');
 const $thowitWrap = document.getElementById('throwit-wrap');
+const $resultBox = document.getElementById('result-box');
+const $resultMessage = document.getElementById('result-message');
+const $resultScore = document.getElementById('result-score');
+const $resultCloseBtn = document.getElementById('result-close-btn');
 
 export default {
     $modalOverlay,
@@ -26,6 +30,9 @@ export default {
     $seaBg,
     $startBtn,
     $viewPort,
-    $thowitWrap
-
+    $thowitWrap,
+    $resultBox,
+    $resultMessage,
+    $resultScore,
+    $resultCloseBtn,
 };
