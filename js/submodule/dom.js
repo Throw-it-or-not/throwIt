@@ -24,6 +24,8 @@ const $guideLineMin = document.querySelector('.guide-line.guide-70');
 const $guideLineMax = document.querySelector('.guide-line.guide-90');
 const $hpBar = document.getElementById('hp-bar');
 const $overOverlay = document.getElementById('modal-overlay over');
+const $clickLeftGuide = document.getElementById('click-left-guide');
+const $clickRightGuide = document.getElementById('click-right-guide');
 
 export default {
     $modalOverlay,
@@ -51,4 +53,7 @@ export default {
     $score,
     $hpBar,
     $overOverlay,
+    $score,
+    $clickLeftGuide,
+    $clickRightGuide,
 };

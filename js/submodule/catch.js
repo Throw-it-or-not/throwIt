@@ -24,6 +24,8 @@ export function updateModalUI(fishNumber, onFinished) {
     $modalOverlay,
     $guideLineMin,
     $guideLineMax,
+    $clickLeftGuide,
+    $clickRightGuide,
   } = elements;
 
   // ======== 상태관리 변수 및 상수 ======== //
@@ -102,6 +104,9 @@ export function updateModalUI(fishNumber, onFinished) {
   $guideLineMin.style.bottom = `${successMin}%`;
   $guideLineMax.style.bottom = `${successMax}%`;
 
+  // 게임 시작 시 초기 클릭 방향 가이드 표시
+  updateClickGuide(expectedClick, $clickLeftGuide, $clickRightGuide);
+
   
   // 낚시 게임 버튼 초기화(활성화)
   $clickBtn.disabled = false;
@@ -147,6 +152,11 @@ export function updateModalUI(fishNumber, onFinished) {
   $clickBtn.addEventListener('mousedown', (e) => {
     e.preventDefault(); // 기본 동작 방지 (특히 우클릭 메뉴)
 
+    // catch.js 내부, $clickBtn 이벤트 리스너 안쪽에 추가
+    $clickBtn.classList.remove('modal-click-animate');
+    void $clickBtn.offsetWidth; // 강제 리플로우
+    $clickBtn.classList.add('modal-click-animate');
+
     // 클릭 순서가 맞을 때만 진행
     if (e.button === expectedClick && curPercent < 100) {
       curPercent += incGaugeMount;
@@ -158,6 +168,9 @@ export function updateModalUI(fishNumber, onFinished) {
 
       // 다음에 눌러야 할 클릭 반전
       expectedClick = expectedClick === 0 ? 2 : 0;
+
+      // 클릭 반전 후 가이드 변경
+      updateClickGuide(expectedClick, $clickLeftGuide, $clickRightGuide);
     }
   });
 
@@ -217,6 +230,25 @@ function updateGaugeColor($gaugeBar, currentPercent, successMin, successMax) {
     $gaugeBar.style.backgroundColor = '#ffeb3b'; // 노랑
   } else {
     $gaugeBar.style.backgroundColor = '#4caf50'; // 초록 (기본)
+  }
+}
+
+
+/**
+ * 클릭 안내 가이드를 업데이트하는 함수
+ *
+ * @param {number} expectedClick 예상 클릭 값. 0이면 왼쪽 가이드가 표시되고, 다른 값이면 오른쪽 가이드가 표시됩니다.
+ * @param {HTMLElement} $clickLeftGuide 왼쪽 클릭 가이드를 나타내는 DOM 요소
+ * @param {HTMLElement} $clickRightGuide 오른쪽 클릭 가이드를 나타내는 DOM 요소
+ * @return {void} 반환값이 없습니다.
+ */
+function updateClickGuide(expectedClick, $clickLeftGuide, $clickRightGuide) {
+  if (expectedClick === 0) {
+    $clickLeftGuide.style.display = 'block';
+    $clickRightGuide.style.display = 'none';
+  } else {
+    $clickLeftGuide.style.display = 'none';
+    $clickRightGuide.style.display = 'block';
   }
 }
 
