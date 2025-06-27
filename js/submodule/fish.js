@@ -26,6 +26,7 @@ export function start() {
         $resultBox,
         $score,
         $hpBar,
+        $overOverlay,
     } = elements;
 
     let intervalId = null;
@@ -161,7 +162,7 @@ export function start() {
     }
 
     function openGameOverModal(){
-
+        $overOverlay.style.display = 'block';
     }
 
 

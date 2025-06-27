@@ -23,6 +23,7 @@ const $homeButton = document.querySelector('#game-description-screen #home-butto
 const $guideLineMin = document.querySelector('.guide-line.guide-70');
 const $guideLineMax = document.querySelector('.guide-line.guide-90');
 const $hpBar = document.getElementById('hp-bar');
+const $overOverlay = document.getElementById('modal-overlay over');
 
 export default {
     $modalOverlay,
@@ -49,4 +50,5 @@ export default {
     $scoreArea,
     $score,
     $hpBar,
+    $overOverlay,
 };
