@@ -147,6 +147,11 @@ export function updateModalUI(fishNumber, onFinished) {
   $clickBtn.addEventListener('mousedown', (e) => {
     e.preventDefault(); // 기본 동작 방지 (특히 우클릭 메뉴)
 
+    // catch.js 내부, $clickBtn 이벤트 리스너 안쪽에 추가
+    $clickBtn.classList.remove('modal-click-animate');
+    void $clickBtn.offsetWidth; // 강제 리플로우
+    $clickBtn.classList.add('modal-click-animate');
+
     // 클릭 순서가 맞을 때만 진행
     if (e.button === expectedClick && curPercent < 100) {
       curPercent += incGaugeMount;
