@@ -37,9 +37,10 @@ export function start() {
     let totalScore = 0;
 
     // 낚시대 내구도 용 변수
-    let hp = 100;
+    let hp = 10;
     let currentHp = getComputedStyle($hpBar).height.slice(0, -1);
-    console.log(currentHp)
+
+    showHp(hp);
 
     const seaWidth = $thowitWrap.offsetWidth;
     const seaHeight = $thowitWrap.offsetHeight - 140;
@@ -111,7 +112,6 @@ export function start() {
     }
 
     function decreaseHp(finalScore, fishingScore){
-        console.log(fishingScore)
         if(finalScore === 0){
             console.log(`실패 hp 감소 시작`)
             switch (fishingScore){
@@ -159,13 +159,38 @@ export function start() {
     }
 
     function openGameOverModal(){
-        $overOverlay.style.display = 'block';
+
+        showHp(hp);
+
+        $overOverlay.style.display = 'flex';
+
+        stopped = true;
+
+        if(stopped){
+            $fish.classList.remove('show');
+            clearTimeout(timerId);
+            clearInterval(intervalId);
+
+            intervalId = null;
+        }
+    }
+
+    function initialGame(){
+        $viewPort.style.display = 'flex';
+
+        $overOverlay.style.display = 'none';
+        $sea.style.display = 'none';
     }
 
 
     // ======== 이벤트 리스너 설정 ========== //
     function startFishGame() {
         if (intervalId !== null) return; // 중복 방지
+
+        if(hp <= 0){
+            openGameOverModal();
+            return;
+        }
 
         intervalId = setInterval(() => {
             $seaBg.style.animationPlayState = 'running';
@@ -194,12 +219,7 @@ export function start() {
             writeLog(finalScore);
             showHp(decreaseHp(finalScore, fishingScore));
 
-
-            if(hp <= 0){
-                openGameOverModal();
-            }
         });
-
 
     })
 
@@ -249,7 +269,7 @@ export function start() {
         // 불러오기 기능 완성 시 로컬 스토리지에 저장
 
         // 메인으로 나가고 게임 초기화
-
+        initialGame();
     })
 
     // 우클릭 메뉴 막기

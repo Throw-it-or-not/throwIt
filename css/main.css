@@ -446,7 +446,7 @@ body{
 }
 
 #modal-content-over {
-    width: 60%;
+    width: 40%;
     height: 40%;
     background: #fff;
     position: relative;
@@ -459,5 +459,10 @@ body{
     width: 100%;
     text-align: center;
     color: red;
-    font-size: 36px;
+    font-size: 56px;
+    padding-bottom: 12px;
+}
+#restart-btn{
+    cursor: pointer;
+    font-size: 18px;
 }
