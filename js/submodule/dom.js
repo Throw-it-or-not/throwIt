@@ -16,6 +16,7 @@ const $resultMessage = document.getElementById('result-message');
 const $resultScore = document.getElementById('result-score');
 const $resultCloseBtn = document.getElementById('result-close-btn');
 const $scoreArea = document.getElementById('score-area');
+const $score = document.querySelector('.score');
 const $descriptionBtn = document.querySelector('.view-port .left-box .description-button');
 const $gamDescriptionScreen = document.getElementById('game-description-screen');
 const $homeButton = document.querySelector('#game-description-screen #home-button');
@@ -45,4 +46,5 @@ export default {
     $guideLineMin,
     $guideLineMax,
     $scoreArea,
+    $score
 };

@@ -1,7 +1,5 @@
 import elements from './dom.js';
 import {updateModalUI} from "./catch.js";
-import {bindEvents} from "./event.js";
-
 
 // import {bindEvents} from "./event.js";
 
@@ -26,6 +24,7 @@ export function start() {
         $homeButton,
         $resultCloseBtn,
         $resultBox,
+        $score,
     } = elements;
 
     let intervalId = null;
@@ -97,7 +96,7 @@ export function start() {
 
     function writeLog(score) {
         totalScore += score
-        $scoreArea.textContent = totalScore;
+        $score.textContent = totalScore;
     }
 
     // ======== 이벤트 리스너 설정 ========== //
