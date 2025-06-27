@@ -254,11 +254,14 @@ body{
 #modal-content {
     width: 60%;
     height: 80%;
-    background: #7f9aee;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-image: url('../image/modal_bg.png');
+    background-size: cover;      /* 배경이 요소에 꽉 차게 */
+    background-position: center; /* 가운데 정렬 */
+    background-repeat: no-repeat;
 }
 
 /* 물고기 이미지 */
