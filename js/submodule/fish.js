@@ -177,7 +177,8 @@ export function start() {
         startFishGame();
     });
 
-
+    // 우클릭 메뉴 막기
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
 }
 
 
