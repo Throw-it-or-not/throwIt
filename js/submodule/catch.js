@@ -118,7 +118,7 @@ export function updateModalUI(fishNumber, onFinished) {
 
     // 게임 끝났으니 콜백 호출
     if (typeof onFinished === 'function') {
-      onFinished(resultScore);
+      onFinished(resultScore, fishingScore);
     }
   }, setFishingTime);
 

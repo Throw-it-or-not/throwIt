@@ -25,6 +25,7 @@ export function start() {
         $resultCloseBtn,
         $resultBox,
         $score,
+        $hpBar,
     } = elements;
 
     let intervalId = null;
@@ -34,7 +35,9 @@ export function start() {
     let totalScore = 0;
 
     // 낚시대 내구도 용 변수
-    let durability = 100;
+    let hp = 100;
+    let currentHp = getComputedStyle($hpBar).height.slice(0, -1);
+    console.log(currentHp)
 
     const seaWidth = $thowitWrap.offsetWidth;
     const seaHeight = $thowitWrap.offsetHeight;
@@ -49,6 +52,9 @@ export function start() {
         'url(/image/fish-04.png)',
         'url(/image/fish-05.png)'
     ];
+
+
+
 
 // Math.floor(Math.random() * (y - x + 1)) + x;
 
@@ -102,6 +108,63 @@ export function start() {
         $score.textContent = totalScore;
     }
 
+    function decreaseHp(finalScore, fishingScore){
+        console.log(fishingScore)
+        if(finalScore === 0){
+            console.log(`실패 hp 감소 시작`)
+            switch (fishingScore){
+                case 10:
+                    hp -= 10;
+                    break;
+                case 20:
+                    hp -= 20;
+                    break;
+                case 30:
+                    hp -= 30;
+                    break;
+                case 40:
+                    hp -= 40;
+                    break;
+                case 50:
+                    hp -= 50;
+                    break;
+            }
+            return hp;
+        }
+        else{
+            switch (finalScore){
+                case 10:
+                case 20:
+                    hp -= 5;
+                    break;
+                case 30:
+                case 40:
+                    hp -= 10;
+                    break;
+                default:
+                    hp -= 15;
+                    break;
+            }
+            return hp;
+        }
+    }
+
+    function showHp(hp) {
+        console.log(currentHp)
+        currentHp = hp;
+        console.log(currentHp)
+        $hpBar.style.height = `${currentHp}%`;
+
+        if(hp <= 0){
+            openGameOverModal();
+        }
+    }
+
+    function openGameOverModal(){
+
+    }
+
+
     // ======== 이벤트 리스너 설정 ========== //
     function startFishGame() {
         if (intervalId !== null) return; // 중복 방지
@@ -126,11 +189,12 @@ export function start() {
             $modalOverlay.style.display = 'flex';
         }
 
-        updateModalUI(currentFishNumber, (finalScore) => {
+        updateModalUI(currentFishNumber, (finalScore, fishingScore) => {
             console.log(`🎯 최종 점수: ${finalScore}`);
             // 여기서 이후 UI 업데이트나 게임 진행 가능
             stopped = false;
             writeLog(finalScore);
+            showHp(decreaseHp(finalScore, fishingScore));
         });
 
 
