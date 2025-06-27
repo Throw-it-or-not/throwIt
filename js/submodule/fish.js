@@ -153,6 +153,9 @@ export function start() {
 
     function showHp(hp) {
         console.log(currentHp)
+        if(currentHp <= 0) {
+            hp = 0;
+        }
         currentHp = hp;
         console.log(currentHp)
         $hpBar.style.height = `${currentHp}%`;
@@ -175,13 +178,23 @@ export function start() {
         }
     }
 
-    function initialGame(){
-        $viewPort.style.display = 'flex';
+    function initializeGame() {
+        stopped = false;
 
+        hp = 100;
+        currentHp = 100;
+        showHp(hp);
+
+
+        $score.textContent = ` `;
+
+    }
+
+    function closeOverModal() {
+        $viewPort.style.display = 'flex';
         $overOverlay.style.display = 'none';
         $sea.style.display = 'none';
     }
-
 
     // ======== 이벤트 리스너 설정 ========== //
     function startFishGame() {
@@ -269,7 +282,8 @@ export function start() {
         // 불러오기 기능 완성 시 로컬 스토리지에 저장
 
         // 메인으로 나가고 게임 초기화
-        initialGame();
+        closeOverModal();
+        initializeGame()
     })
 
     // 우클릭 메뉴 막기
