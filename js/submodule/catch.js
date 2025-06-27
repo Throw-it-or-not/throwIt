@@ -97,9 +97,10 @@ export function updateModalUI(fishNumber, onFinished) {
   updateGaugeColor($gaugeBar, curPercent, successMin, successMax);
   void $gaugeBar.offsetHeight; // 강제 리플로우
   $gaugeBar.style.transition = ''; // transition 복원
+  
+  // 성공 범위에 따라 가이드 라인 변경
   $guideLineMin.style.bottom = `${successMin}%`;
   $guideLineMax.style.bottom = `${successMax}%`;
-  console.log(successMin);
 
   
   // 낚시 게임 버튼 초기화(활성화)
@@ -108,8 +109,12 @@ export function updateModalUI(fishNumber, onFinished) {
   // 지정된 시간이 지난 후 게임 종료
   setTimeout(() => {
     timeOver(decTimerId);
+
+    // 게임이 종료되어, 점수 판별 전 게이지 업데이트
+    updateGaugeColor($gaugeBar, curPercent, successMin, successMax);
+
+    // 최종 점수 판결, 종료 박스 열기
     resultScore = handleFishingResult(curPercent, $clickBtn, fishingScore, $resultBox, $resultMessage, $resultScore, successMin, successMax);
-    console.log(`decGaugeMount: ${decGaugeMount}`);
 
     // 게임 끝났으니 콜백 호출
     if (typeof onFinished === 'function') {
@@ -132,7 +137,7 @@ export function updateModalUI(fishNumber, onFinished) {
       $gaugeBar.style.height = `${curPercent}%`;
     }
     // 게이지 색상 업데이트 함수
-    updateGaugeColor($gaugeBar, curPercent);
+    updateGaugeColor($gaugeBar, curPercent, successMin, successMax);
   }, decTimerInterval);
 
 
