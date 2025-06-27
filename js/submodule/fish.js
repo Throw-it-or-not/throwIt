@@ -27,6 +27,7 @@ export function start() {
         $score,
         $hpBar,
         $overOverlay,
+        $restartBtn,
     } = elements;
 
     let intervalId = null;
@@ -41,7 +42,7 @@ export function start() {
     console.log(currentHp)
 
     const seaWidth = $thowitWrap.offsetWidth;
-    const seaHeight = $thowitWrap.offsetHeight;
+    const seaHeight = $thowitWrap.offsetHeight - 140;
 
     const maxX = seaWidth - $fish.offsetWidth - 100;
     const maxY = seaHeight - $fish.offsetHeight - 100;
@@ -155,10 +156,6 @@ export function start() {
         currentHp = hp;
         console.log(currentHp)
         $hpBar.style.height = `${currentHp}%`;
-
-        if(hp <= 0){
-            openGameOverModal();
-        }
     }
 
     function openGameOverModal(){
@@ -196,6 +193,11 @@ export function start() {
             stopped = false;
             writeLog(finalScore);
             showHp(decreaseHp(finalScore, fishingScore));
+
+
+            if(hp <= 0){
+                openGameOverModal();
+            }
         });
 
 
@@ -241,6 +243,14 @@ export function start() {
 
         startFishGame();
     });
+
+    // 게임 오버 모달에서 메인으로 돌아가기 버튼 클릭
+    $restartBtn.addEventListener('click', e => {
+        // 불러오기 기능 완성 시 로컬 스토리지에 저장
+
+        // 메인으로 나가고 게임 초기화
+
+    })
 
     // 우클릭 메뉴 막기
     document.addEventListener('contextmenu', (e) => e.preventDefault());

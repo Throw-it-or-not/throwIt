@@ -253,7 +253,7 @@ body{
 }
 
 /* ================== 낚시 모달 ================== */
-#modal-overlay {
+.modal-overlay {
     height: 100%;
     width: 100%;
     margin: auto;
@@ -430,4 +430,34 @@ body{
     background-color: #1976d2;
 }
 
+/* ================== 게임 오버 모달 ================== */
+.modal-overlay-over {
+    height: 100%;
+    width: 100%;
+    margin: auto;
+    background: rgba(0, 0, 0, 0.3);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
 
+#modal-content-over {
+    width: 60%;
+    height: 40%;
+    background: #fff;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.game-over-area{
+    width: 100%;
+    text-align: center;
+    color: red;
+    font-size: 36px;
+}
