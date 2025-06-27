@@ -231,6 +231,26 @@ body{
     left: 0;
     z-index: 1;
 }
+
+.click-guide {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;
+    opacity: 0.85;
+    pointer-events: none;
+    display: none;
+    z-index: 10;
+}
+
+#click-left-guide {
+    left: 30px;
+}
+
+#click-right-guide {
+    right: 30px;
+}
+
 #modal-content {
     width: 60%;
     height: 80%;
