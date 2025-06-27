@@ -33,6 +33,9 @@ export function start() {
     let currentFishNumber = null;
     let totalScore = 0;
 
+    // 낚시대 내구도 용 변수
+    let durability = 100;
+
     const seaWidth = $thowitWrap.offsetWidth;
     const seaHeight = $thowitWrap.offsetHeight;
 
