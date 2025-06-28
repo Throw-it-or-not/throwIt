@@ -314,8 +314,8 @@ body{
 }
 
 #modal-content {
-    width: 50%;
-    height: 70%;
+    width: 480px;
+    height: 420px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -327,14 +327,15 @@ body{
 }
 #modal-content::before{
     content: '';
-    width: 130%;
-    height: 140%;
+    width: 600px;
+    height: 460px;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     background-image: url('/image/modal-frame.png');
     background-size: cover;
+    background-position: center;
 }
 
 /* 물고기 이미지 */
@@ -490,20 +491,6 @@ body{
 }
 
 /* ================== 게임 오버 모달 ================== */
-.modal-overlay-over {
-    height: 100%;
-    width: 100%;
-    margin: auto;
-    background: rgba(0, 0, 0, 0.3);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
 #modal-content-over {
     width: 400px;
     height: 260px;
