@@ -32,7 +32,7 @@ export function updateModalUI(fishNumber, onFinished) {
 
   // 무슨 물고기인지에 따라 획득할 수 있는 점수 달라짐.
   let fishingScore = getFishScore(fishNumber);
-  console.log(fishingScore);
+  // console.log(fishingScore);
 
   // 난이도별 세팅
   const difficultySettings = {
@@ -93,8 +93,14 @@ export function updateModalUI(fishNumber, onFinished) {
   
   // 타이머에 기록할 남은 시간 변수
   let remainTime = setFishingTime / 1000; // 5000ms -> 5초
-  // 초기 텍스트로 남은 시간 표시 (소수점 한 자리까지)
+  // 텍스트로 남은 시간 초기화 (소수점 한 자리까지)
   $modalTimer.textContent = `${remainTime.toFixed(1)}초`;
+  // 텍스트 색상 초기화
+  $modalTimer.style.color = 'white';
+  // 텍스트 애니메이션 조절 변수
+  let pulseTimer = 0;
+  // 텍스트 애니메이션 동작 클래스 제거
+  $modalTimer.classList.remove('timer-pulse');
 
   // 결과 점수
   let resultScore = 0;
@@ -121,13 +127,40 @@ export function updateModalUI(fishNumber, onFinished) {
   // 0.1초마다 타이머의 시간을 변경하는 인터벌
   watchIntervalId = setInterval(() => {
     remainTime -= 0.1;
+
     if (remainTime <= 0) {
       remainTime = 0;
-      
       // 남은 시간이 0보다 작거나 같아지면 자동적으로 인터벌 중지
       clearInterval(watchIntervalId);
     }
+
+    // 텍스트 표시
     $modalTimer.textContent = `${remainTime.toFixed(1)}초`;
+
+    // 남은 시간에 따라 색상 변경
+    if (remainTime <= 1.0) {
+      $modalTimer.style.color = '#f44336'; // 빨강
+    } else if (remainTime <= 2.0) {
+      $modalTimer.style.color = '#ff9800'; // 주황
+    } else {
+      $modalTimer.style.color = 'white';   // 기본색
+    }
+
+    // 0.3초 간격으로만 애니메이션 재실행
+    pulseTimer += 0.1;
+    if (remainTime <= 2.0 && pulseTimer >= 0.3) {
+      $modalTimer.classList.remove('timer-pulse');
+      void $modalTimer.offsetWidth; // 강제 리플로우
+      $modalTimer.classList.add('timer-pulse');
+      pulseTimer = 0; // 초기화
+    }
+
+    // 2초 초과 시 애니메이션 제거
+    if (remainTime > 2.0) {
+      $modalTimer.classList.remove('timer-pulse');
+      pulseTimer = 0;
+    }
+
   }, 100);
 
   // 지정된 시간이 지난 후 게임 종료
