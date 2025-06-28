@@ -28,6 +28,10 @@ export function start() {
         $hpBar,
         $overOverlay,
         $restartBtn,
+        $goHomeBtn,
+        $homeModal,
+        $confirmYes,
+        $confirmNo,
     } = elements;
 
     let intervalId = null;
@@ -286,6 +290,30 @@ export function start() {
         closeOverModal();
         initializeGame()
     })
+
+    // 홈 버튼 클릭 → 모달 열기
+    $goHomeBtn.addEventListener('click', () => {
+        $homeModal.style.display = 'flex';
+    });
+
+    // "아니오" → 모달 닫기
+    $confirmNo.addEventListener('click', () => {
+        $homeModal.style.display = 'none';
+    });
+
+    // "예" → 인트로 화면으로 이동
+    $confirmYes.addEventListener('click', () => {
+        $viewPort.style.display = 'flex';
+        $sea.style.display = 'none';
+        $homeModal.style.display = 'none';
+        
+        // 게임 정지
+        $seaBg.style.animationPlayState = 'paused';
+        $fish.classList.remove('show');
+        clearTimeout(timerId);
+        clearInterval(intervalId);
+        intervalId = null;
+    });
 
     // 우클릭 메뉴 막기
     document.addEventListener('contextmenu', (e) => e.preventDefault());

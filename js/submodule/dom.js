@@ -27,6 +27,10 @@ const $overOverlay = document.getElementById('modal-overlay-over');
 const $clickLeftGuide = document.getElementById('click-left-guide');
 const $clickRightGuide = document.getElementById('click-right-guide');
 const $restartBtn = document.getElementById('restart-btn');
+const $goHomeBtn = document.getElementById('go-home-btn');
+const $homeModal = document.getElementById('home-confirm-modal');
+const $confirmYes = document.getElementById('confirm-yes');
+const $confirmNo = document.getElementById('confirm-no');
 
 export default {
     $modalOverlay,
@@ -57,4 +61,8 @@ export default {
     $clickLeftGuide,
     $clickRightGuide,
     $restartBtn,
+    $goHomeBtn,
+    $homeModal,
+    $confirmYes,
+    $confirmNo,
 };

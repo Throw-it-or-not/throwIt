@@ -40,6 +40,9 @@
         <div id="sea-wrapper">
             <div id="sea-bg"></div>
             <button class="fish-btn"></button>
+            <button id="go-home-btn" class="home-icon-button">
+                <i class="fas fa-home"></i>
+            </button>
             <div id="score-area">
                 <p class="score"></p>
             </div>
@@ -84,6 +87,19 @@
                 <button type="submit" id="restart-btn">메인으로 돌아가기</button>
             </div>
         </div>
+
+        <!-- 홈 이동 확인 모달 -->
+        <div class="modal-overlay" id="home-confirm-modal">
+            <div class="modal-confirm-content">
+                <p class="confirm-message">메인으로<br>돌아가시겠습니까?</p>
+                <div class="confirm-actions">
+                    <button id="confirm-yes">예</button>
+                    <button id="confirm-no">아니오</button>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
 </body>

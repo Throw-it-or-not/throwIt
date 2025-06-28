@@ -189,6 +189,22 @@ body{
         left: -100%;
     }
 }
+/* 홈 아이콘 버튼 */
+.home-icon-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 28px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+}
+.home-icon-button:hover {
+    color: #ffeb3b;
+}
+
 #score-area{
     width: 200px;
     height: 140px;
@@ -467,4 +483,50 @@ body{
 #restart-btn{
     cursor: pointer;
     font-size: 18px;
+}
+
+/* ================ 홈 이동 확인 모달 ================ */
+#home-confirm-modal {
+    background-color: rgba(0,0,0,0.5);
+    z-index: 20;
+}
+
+.modal-confirm-content {
+    width: 280px;
+    background-color: white;
+    padding: 25px 20px;
+    border: 2px solid #444;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.confirm-message {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.confirm-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.confirm-actions button {
+    width: 75px;
+    padding: 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #2196f3;
+    color: white;
+    transition: background-color 0.2s ease;
+}
+
+.confirm-actions button:hover {
+    background-color: #1976d2;
 }
