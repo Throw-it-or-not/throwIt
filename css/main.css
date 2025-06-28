@@ -189,6 +189,22 @@ body{
         left: -100%;
     }
 }
+/* 홈 아이콘 버튼 */
+.home-icon-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 28px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+}
+.home-icon-button:hover {
+    color: #ffeb3b;
+}
+
 #score-area{
     width: 200px;
     height: 140px;
