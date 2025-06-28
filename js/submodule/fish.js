@@ -37,7 +37,7 @@ export function start() {
     let totalScore = 0;
 
     // 낚시대 내구도 용 변수
-    let hp = 10;
+    let hp = 100;
     let currentHp = getComputedStyle($hpBar).height.slice(0, -1);
 
     showHp(hp);
@@ -185,6 +185,7 @@ export function start() {
         currentHp = 100;
         showHp(hp);
 
+        totalScore = 0;
 
         $score.textContent = ` `;
 
