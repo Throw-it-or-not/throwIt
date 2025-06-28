@@ -288,6 +288,10 @@ export function start() {
         // 게임 설명 화면 불러오기
         $gamDescriptionScreen.style.display = 'flex';
 
+        // 게임 설명 화면 1번으로 초기화 하기
+        currentStep = 1;
+        updateDescriptionUI();
+
     });
 
     // 게임 설명 버튼의 다음 버튼 이벤트 kdh
