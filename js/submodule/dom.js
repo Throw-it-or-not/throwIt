@@ -24,6 +24,9 @@ const $guideLineMin = document.querySelector('.guide-line.guide-70');
 const $guideLineMax = document.querySelector('.guide-line.guide-90');
 const $clickLeftGuide = document.getElementById('click-left-guide');
 const $clickRightGuide = document.getElementById('click-right-guide');
+const $gameDescriptionPre = document.getElementById('game-description-pre'); // kdh
+const $gameDescriptionNext = document.getElementById('game-description-next'); // kdh
+const $gameDescriptionTextBox = [...document.querySelectorAll('.game-description-text')]; // kdh
 
 export default {
     $modalOverlay,
@@ -51,4 +54,7 @@ export default {
     $score,
     $clickLeftGuide,
     $clickRightGuide,
+    $gameDescriptionPre,
+    $gameDescriptionNext,
+    $gameDescriptionTextBox,
 };

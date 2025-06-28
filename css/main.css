@@ -135,6 +135,7 @@ body{
     flex-direction: column;
     gap: 30px;
     padding: 10px;
+    height: 600px;
 }
 
 #game-description-screen #game-description-title {
@@ -170,6 +171,7 @@ body{
 #game-description-screen #game-description {
     background: #1E86E8;
     width: 70%;
+    height: 70%;
     padding: 20px;
     border-radius: 30px;
     display: flex;
@@ -180,6 +182,8 @@ body{
 #game-description-screen #game-description #game-description-pre {
     width: 10%;
     height: 70px;
+    font-size: 30px;
+    border-radius: 20px;
 }
 
 #game-description-screen #game-description #game-description-pre:hover {
@@ -190,6 +194,8 @@ body{
 #game-description-screen #game-description #game-description-next {
     width: 10%;
     height: 70px;
+    font-size: 30px;
+    border-radius: 20px;
 }
 
 #game-description-screen #game-description #game-description-next:hover {
@@ -202,11 +208,18 @@ body{
     /*border: 2px solid black;*/
 }
 
-#game-description-screen #game-description #game-description-text-box #game-description-text {
+#game-description-screen #game-description #game-description-text-box .game-description-text {
+    display: none; /* 기본적으로 모든 콘텐츠는 숨김 */
+}
+
+#game-description-screen #game-description #game-description-text-box .game-description-text.active {
+    display: block; /* active 클래스가 붙은 콘텐츠만 보여줌 */
+}
+
+#game-description-screen #game-description #game-description-text-box p {
     color: #f1f1f1;
     font-size: 30px;
 }
-
 
 /* ================== 바다 스테이지 ================== */
 #sea-wrapper{
