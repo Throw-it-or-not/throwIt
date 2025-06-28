@@ -26,7 +26,7 @@ body{
     background-position: bottom;
     background-size: cover;
     display: flex;
-    justify-content: left;
+    justify-content: space-evenly;
     align-items: center;
 
 }
@@ -35,7 +35,7 @@ body{
     flex-direction: column;
     gap: 30px;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 .view-port .left-box .content {
     height: 150px;
@@ -62,7 +62,7 @@ body{
 .view-port .left-box .btn:hover {
     /*background: #2980b9;
     !* 손모양 커서! *!*/
-    color: #fff;
+    color: #ffeb3b;
     cursor: pointer;
 }
 .view-port .main-image {
@@ -272,7 +272,7 @@ body{
     background-color: #3DFF00;
     position: absolute;
     left: 50%;
-    bottom: -3px;
+    bottom: -2px;
     transform: translateX(-50%);
     border-radius: 4px 4px 0 0;
     border-top: 2px solid #0BCD00;
@@ -314,8 +314,8 @@ body{
 }
 
 #modal-content {
-    width: 60%;
-    height: 80%;
+    width: 50%;
+    height: 70%;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -325,13 +325,24 @@ body{
     background-position: center; /* 가운데 정렬 */
     background-repeat: no-repeat;
 }
+#modal-content::before{
+    content: '';
+    width: 130%;
+    height: 140%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url('/image/modal-frame.png');
+    background-size: cover;
+}
 
 /* 물고기 이미지 */
 #modal-fish-container {
     position: absolute;
     width: 70%;
-    height: 300px;
-    top: 0;
+    height: 260px;
+    top: 39px;
 }
 #modal-fish-container img {
     width: 100%;
@@ -340,9 +351,9 @@ body{
 
 .gauge-container {
     position: absolute;
-    top: 70px; /* 물고기와 같은 y좌표로 맞춤 */
-    right: 26px;
-    width: 60px;
+    top: 80px; /* 물고기와 같은 y좌표로 맞춤 */
+    right: 48px;
+    width: 50px;
     height: 300px;
     border: 2px solid #333;
     border-radius: 10px;
@@ -377,7 +388,7 @@ body{
 
 #modal-click-btn {
     position: absolute;
-    bottom: 25px;
+    bottom: 40px;
     padding: 15px 30px;
     font-size: 20px;
     background: linear-gradient(to bottom, #42a5f5, #1e88e5);
@@ -419,8 +430,8 @@ body{
 
 #modal-timer {
     position: absolute;
-    top: 30px;
-    right: 22px;
+    top: 50px;
+    right: 42px;
     font-size: 24px;
     font-weight: bold;
     color: white;
@@ -494,25 +505,28 @@ body{
 }
 
 #modal-content-over {
-    width: 40%;
-    height: 40%;
-    background: #fff;
+    width: 400px;
+    height: 260px;
+    background-image: url('/image/over-modal-bg.png');
+    background-size: contain;
+    background-repeat: no-repeat;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 .game-over-area{
     width: 100%;
     text-align: center;
-    color: red;
+    color: #6A0909;
     font-size: 56px;
     padding-bottom: 12px;
+    margin-top: 76px;
 }
 #restart-btn{
     cursor: pointer;
     font-size: 18px;
+    background-color: transparent;
 }
 
 /* ================ 홈 이동 확인 모달 ================ */
