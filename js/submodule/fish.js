@@ -44,6 +44,9 @@ export function start() {
     let hp = 100;
     let currentHp = getComputedStyle($hpBar).height.slice(0, -1);
 
+    // 점수 텍스트 초기화
+    $score.textContent = `${totalScore}`;
+
     showHp(hp);
 
     const seaWidth = $thowitWrap.offsetWidth;
@@ -112,7 +115,7 @@ export function start() {
 
     function writeLog(score) {
         totalScore += score
-        $score.textContent = totalScore;
+        $score.textContent = `${totalScore}`;
     }
 
     function decreaseHp(finalScore, fishingScore){
@@ -191,7 +194,7 @@ export function start() {
 
         totalScore = 0;
 
-        $score.textContent = ` `;
+        $score.textContent = `${totalScore}`;
 
     }
 
@@ -288,7 +291,7 @@ export function start() {
 
         // 메인으로 나가고 게임 초기화
         closeOverModal();
-        initializeGame()
+        initializeGame();
     })
 
     // 홈 버튼 클릭 → 모달 열기
@@ -313,6 +316,9 @@ export function start() {
         clearTimeout(timerId);
         clearInterval(intervalId);
         intervalId = null;
+        
+        // 게임 초기화
+        initializeGame();
     });
 
     // 우클릭 메뉴 막기
