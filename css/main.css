@@ -26,7 +26,7 @@ body{
     background-position: bottom;
     background-size: cover;
     display: flex;
-    justify-content: left;
+    justify-content: space-evenly;
     align-items: center;
 
 }
@@ -34,12 +34,10 @@ body{
     display: flex;
     flex-direction: column;
     gap: 30px;
-    width: 40%;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 .view-port .left-box .content {
-    width: 90%;
     height: 150px;
     /*background-color: #f47c3c; !* 오렌지색 *!*/
     color: white;
@@ -52,79 +50,33 @@ body{
     /*box-shadow: 2px 2px 5px rgba(0,0,0,0.2);*/
 }
 
-.view-port .left-box .score-log-button {
-    width: 300px;
+.view-port .left-box .btn{
+    width: 180px;
     height: 100px;
-    background-color: #f47c3c; /* 오렌지색 */
-    color: white;
-    font-size: 40px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-    border-radius: 30px;
+    background-color: transparent;
+    background-image: url('/image/intro-btn-bg.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    font-size: 32px;
 }
-
-.view-port .left-box .score-log-button:hover {
-    background: #2980b9;
-    /* 손모양 커서! */
-    cursor: pointer;
-}
-
-.view-port .left-box .description-button {
-    width: 300px;
-    height: 100px;
-    background-color: #f47c3c; /* 오렌지색 */
-    color: white;
-    font-size: 40px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-    border-radius: 30px;
-}
-
-.view-port .left-box .description-button:hover {
-    background: #2980b9;
-    /* 손모양 커서! */
-    cursor: pointer;
-}
-
-.view-port .left-box .start-button {
-    width: 300px;
-    height: 100px;
-    background-color: #f47c3c; /* 오렌지색 */
-    color: white;
-    font-size: 40px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-    border-radius: 30px;
-}
-.view-port .left-box .start-button:hover {
-    background: #2980b9;
-    /* 손모양 커서! */
+.view-port .left-box .btn:hover {
+    /*background: #2980b9;
+    !* 손모양 커서! *!*/
+    color: #ffeb3b;
     cursor: pointer;
 }
 .view-port .main-image {
     background-image: url(/image/break_sheep.png);
     width: 400px;
     height: 500px;
-    text-align: center;
     background-size: contain;
     background-repeat: no-repeat;
-    margin-top: 167px;
+    background-position: center bottom;
 }
 
 /* ================== 게임 설명 화면 ================== */
 #game-description-screen {
+    height: 100%;
     background-size: contain;
     background: #7f9aee;
     border: 2px solid #808080;
@@ -320,7 +272,7 @@ body{
     background-color: #3DFF00;
     position: absolute;
     left: 50%;
-    bottom: -3px;
+    bottom: -2px;
     transform: translateX(-50%);
     border-radius: 4px 4px 0 0;
     border-top: 2px solid #0BCD00;
@@ -362,8 +314,8 @@ body{
 }
 
 #modal-content {
-    width: 60%;
-    height: 80%;
+    width: 480px;
+    height: 420px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -373,13 +325,25 @@ body{
     background-position: center; /* 가운데 정렬 */
     background-repeat: no-repeat;
 }
+#modal-content::before{
+    content: '';
+    width: 600px;
+    height: 460px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url('/image/modal-frame.png');
+    background-size: cover;
+    background-position: center;
+}
 
 /* 물고기 이미지 */
 #modal-fish-container {
     position: absolute;
     width: 70%;
-    height: 300px;
-    top: 0;
+    height: 260px;
+    top: 39px;
 }
 #modal-fish-container img {
     width: 100%;
@@ -388,9 +352,9 @@ body{
 
 .gauge-container {
     position: absolute;
-    top: 70px; /* 물고기와 같은 y좌표로 맞춤 */
-    right: 26px;
-    width: 60px;
+    top: 80px; /* 물고기와 같은 y좌표로 맞춤 */
+    right: 48px;
+    width: 50px;
     height: 300px;
     border: 2px solid #333;
     border-radius: 10px;
@@ -425,7 +389,7 @@ body{
 
 #modal-click-btn {
     position: absolute;
-    bottom: 25px;
+    bottom: 40px;
     padding: 15px 30px;
     font-size: 20px;
     background: linear-gradient(to bottom, #42a5f5, #1e88e5);
@@ -467,8 +431,8 @@ body{
 
 #modal-timer {
     position: absolute;
-    top: 30px;
-    right: 22px;
+    top: 50px;
+    right: 42px;
     font-size: 24px;
     font-weight: bold;
     color: white;
@@ -527,40 +491,29 @@ body{
 }
 
 /* ================== 게임 오버 모달 ================== */
-.modal-overlay-over {
-    height: 100%;
-    width: 100%;
-    margin: auto;
-    background: rgba(0, 0, 0, 0.3);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
 #modal-content-over {
-    width: 40%;
-    height: 40%;
-    background: #fff;
+    width: 400px;
+    height: 260px;
+    background-image: url('/image/over-modal-bg.png');
+    background-size: contain;
+    background-repeat: no-repeat;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 .game-over-area{
     width: 100%;
     text-align: center;
-    color: red;
+    color: #6A0909;
     font-size: 56px;
     padding-bottom: 12px;
+    margin-top: 76px;
 }
 #restart-btn{
     cursor: pointer;
     font-size: 18px;
+    background-color: transparent;
 }
 
 /* ================ 홈 이동 확인 모달 ================ */
