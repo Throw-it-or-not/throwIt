@@ -25,6 +25,9 @@ export function start() {
         $resultCloseBtn,
         $resultBox,
         $score,
+        $hpBar,
+        $overOverlay,
+        $restartBtn,
     } = elements;
 
     let intervalId = null;
@@ -34,10 +37,13 @@ export function start() {
     let totalScore = 0;
 
     // 낚시대 내구도 용 변수
-    let durability = 100;
+    let hp = 100;
+    let currentHp = getComputedStyle($hpBar).height.slice(0, -1);
+
+    showHp(hp);
 
     const seaWidth = $thowitWrap.offsetWidth;
-    const seaHeight = $thowitWrap.offsetHeight;
+    const seaHeight = $thowitWrap.offsetHeight - 140;
 
     const maxX = seaWidth - $fish.offsetWidth - 100;
     const maxY = seaHeight - $fish.offsetHeight - 100;
@@ -49,6 +55,9 @@ export function start() {
         'url(/image/fish-04.png)',
         'url(/image/fish-05.png)'
     ];
+
+
+
 
 // Math.floor(Math.random() * (y - x + 1)) + x;
 
@@ -102,9 +111,100 @@ export function start() {
         $score.textContent = totalScore;
     }
 
+    function decreaseHp(finalScore, fishingScore){
+        if(finalScore === 0){
+            console.log(`실패 hp 감소 시작`)
+            switch (fishingScore){
+                case 10:
+                    hp -= 10;
+                    break;
+                case 20:
+                    hp -= 20;
+                    break;
+                case 30:
+                    hp -= 30;
+                    break;
+                case 40:
+                    hp -= 40;
+                    break;
+                case 50:
+                    hp -= 50;
+                    break;
+            }
+            return hp;
+        }
+        else{
+            switch (finalScore){
+                case 10:
+                case 20:
+                    hp -= 5;
+                    break;
+                case 30:
+                case 40:
+                    hp -= 10;
+                    break;
+                default:
+                    hp -= 15;
+                    break;
+            }
+            return hp;
+        }
+    }
+
+    function showHp(hp) {
+        console.log(currentHp)
+        if(currentHp <= 0) {
+            hp = 0;
+        }
+        currentHp = hp;
+        console.log(currentHp)
+        $hpBar.style.height = `${currentHp}%`;
+    }
+
+    function openGameOverModal(){
+
+        showHp(hp);
+
+        $overOverlay.style.display = 'flex';
+
+        stopped = true;
+
+        if(stopped){
+            $fish.classList.remove('show');
+            clearTimeout(timerId);
+            clearInterval(intervalId);
+
+            intervalId = null;
+        }
+    }
+
+    function initializeGame() {
+        stopped = false;
+
+        hp = 100;
+        currentHp = 100;
+        showHp(hp);
+
+        totalScore = 0;
+
+        $score.textContent = ` `;
+
+    }
+
+    function closeOverModal() {
+        $viewPort.style.display = 'flex';
+        $overOverlay.style.display = 'none';
+        $sea.style.display = 'none';
+    }
+
     // ======== 이벤트 리스너 설정 ========== //
     function startFishGame() {
         if (intervalId !== null) return; // 중복 방지
+
+        if(hp <= 0){
+            openGameOverModal();
+            return;
+        }
 
         intervalId = setInterval(() => {
             $seaBg.style.animationPlayState = 'running';
@@ -126,13 +226,14 @@ export function start() {
             $modalOverlay.style.display = 'flex';
         }
 
-        updateModalUI(currentFishNumber, (finalScore) => {
+        updateModalUI(currentFishNumber, (finalScore, fishingScore) => {
             console.log(`🎯 최종 점수: ${finalScore}`);
             // 여기서 이후 UI 업데이트나 게임 진행 가능
             stopped = false;
             writeLog(finalScore);
-        });
+            showHp(decreaseHp(finalScore, fishingScore));
 
+        });
 
     })
 
@@ -176,6 +277,15 @@ export function start() {
 
         startFishGame();
     });
+
+    // 게임 오버 모달에서 메인으로 돌아가기 버튼 클릭
+    $restartBtn.addEventListener('click', e => {
+        // 불러오기 기능 완성 시 로컬 스토리지에 저장
+
+        // 메인으로 나가고 게임 초기화
+        closeOverModal();
+        initializeGame()
+    })
 
     // 우클릭 메뉴 막기
     document.addEventListener('contextmenu', (e) => e.preventDefault());

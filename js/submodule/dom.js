@@ -22,8 +22,11 @@ const $gamDescriptionScreen = document.getElementById('game-description-screen')
 const $homeButton = document.querySelector('#game-description-screen #home-button');
 const $guideLineMin = document.querySelector('.guide-line.guide-70');
 const $guideLineMax = document.querySelector('.guide-line.guide-90');
+const $hpBar = document.getElementById('hp-bar');
+const $overOverlay = document.getElementById('modal-overlay-over');
 const $clickLeftGuide = document.getElementById('click-left-guide');
 const $clickRightGuide = document.getElementById('click-right-guide');
+const $restartBtn = document.getElementById('restart-btn');
 
 export default {
     $modalOverlay,
@@ -48,7 +51,10 @@ export default {
     $guideLineMin,
     $guideLineMax,
     $scoreArea,
+    $hpBar,
+    $overOverlay,
     $score,
     $clickLeftGuide,
     $clickRightGuide,
+    $restartBtn,
 };

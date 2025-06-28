@@ -193,7 +193,7 @@ body{
     width: 200px;
     height: 140px;
     position: absolute;
-    right: 0;
+    left: 0;
     bottom: 0;
     background-image: url('/image/score_bg.png');
     background-size: cover;
@@ -216,9 +216,44 @@ body{
 .show{
     display: block;
 }
+#hp-area{
+    box-sizing: border-box;
+    position: absolute;
+    width: 36px;
+    height: 200px;
+    background-color: #DC7B05;
+    bottom: -3px;
+    right: 20px;
+    border-radius: 8px 8px 0 0;
+    border: 3px solid #5B2B2A;
+}
+#hp-area::before{
+    content: '';
+    display: block;
+    position: absolute;
+    width: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 3px solid #B14E05;
+    height: 100%;
+    border-radius: 6px 6px 0 0;
+    background-color: #FFD789;
+}
+#hp-bar{
+    width: 24px;
+    height: 100%;
+    background-color: #3DFF00;
+    position: absolute;
+    left: 50%;
+    bottom: -3px;
+    transform: translateX(-50%);
+    border-radius: 4px 4px 0 0;
+    border-top: 2px solid #0BCD00;
+    z-index: 1;
+}
 
 /* ================== 낚시 모달 ================== */
-#modal-overlay {
+.modal-overlay {
     height: 100%;
     width: 100%;
     margin: auto;
@@ -397,4 +432,39 @@ body{
     background-color: #1976d2;
 }
 
+/* ================== 게임 오버 모달 ================== */
+.modal-overlay-over {
+    height: 100%;
+    width: 100%;
+    margin: auto;
+    background: rgba(0, 0, 0, 0.3);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
 
+#modal-content-over {
+    width: 40%;
+    height: 40%;
+    background: #fff;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.game-over-area{
+    width: 100%;
+    text-align: center;
+    color: red;
+    font-size: 56px;
+    padding-bottom: 12px;
+}
+#restart-btn{
+    cursor: pointer;
+    font-size: 18px;
+}
