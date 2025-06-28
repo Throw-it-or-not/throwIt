@@ -31,6 +31,9 @@ const $goHomeBtn = document.getElementById('go-home-btn');
 const $homeModal = document.getElementById('home-confirm-modal');
 const $confirmYes = document.getElementById('confirm-yes');
 const $confirmNo = document.getElementById('confirm-no');
+const $gameDescriptionPre = document.getElementById('game-description-pre'); // kdh
+const $gameDescriptionNext = document.getElementById('game-description-next'); // kdh
+const $gameDescriptionTextBox = [...document.querySelectorAll('.game-description-text')]; // kdh
 
 export default {
     $modalOverlay,
@@ -65,4 +68,7 @@ export default {
     $homeModal,
     $confirmYes,
     $confirmNo,
+    $gameDescriptionPre,
+    $gameDescriptionNext,
+    $gameDescriptionTextBox,
 };
