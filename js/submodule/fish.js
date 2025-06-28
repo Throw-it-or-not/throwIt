@@ -32,6 +32,9 @@ export function start() {
         $homeModal,
         $confirmYes,
         $confirmNo,
+        $gameDescriptionPre,
+        $gameDescriptionNext,
+        $gameDescriptionTextBox,
     } = elements;
 
     let intervalId = null;
@@ -43,6 +46,9 @@ export function start() {
     // 낚시대 내구도 용 변수
     let hp = 100;
     let currentHp = getComputedStyle($hpBar).height.slice(0, -1);
+
+    // 점수 텍스트 초기화
+    $score.textContent = `${totalScore}`;
 
     showHp(hp);
 
@@ -60,7 +66,10 @@ export function start() {
         'url(/image/fish-05.png)'
     ];
 
-
+    // 지금 현재 게임설명 몇 단계를 보고있는지를 전역적으로 기억할 수 있게 kdh
+    let currentStep = 1;
+    // 전체 단계의 개수 kdh
+    const totalSteps = $gameDescriptionTextBox.length;
 
 
 // Math.floor(Math.random() * (y - x + 1)) + x;
@@ -112,7 +121,7 @@ export function start() {
 
     function writeLog(score) {
         totalScore += score
-        $score.textContent = totalScore;
+        $score.textContent = `${totalScore}`;
     }
 
     function decreaseHp(finalScore, fishingScore){
@@ -191,7 +200,7 @@ export function start() {
 
         totalScore = 0;
 
-        $score.textContent = ` `;
+        $score.textContent = `${totalScore}`;
 
     }
 
@@ -199,6 +208,26 @@ export function start() {
         $viewPort.style.display = 'flex';
         $overOverlay.style.display = 'none';
         $sea.style.display = 'none';
+    }
+
+    // 게임 설명 화면에서의 다음, 이전 버튼 누를 때 화면 전환 함수 - kdh
+    function updateDescriptionUI() {
+
+        // 1. 설명 화면 업데이트
+        $gameDescriptionTextBox.forEach(($stepText) => {
+            // 현재 활성화해야하는 컨텍스박스의 id의 끝값과 currentStep의 값이 일치
+            if ($stepText.getAttribute('id') === `step-${currentStep}` ) {
+                $stepText.classList.add('active');
+
+            } else {
+                $stepText.classList.remove('active');
+            }
+        });
+
+        // 2. 이전/ 다음 버튼 활성화 처리
+        $gameDescriptionPre.disabled = currentStep === 1;
+        $gameDescriptionNext.disabled = currentStep === totalSteps;
+
     }
 
     // ======== 이벤트 리스너 설정 ========== //
@@ -262,6 +291,28 @@ export function start() {
         // 게임 설명 화면 불러오기
         $gamDescriptionScreen.style.display = 'flex';
 
+        // 게임 설명 화면 1번으로 초기화 하기
+        currentStep = 1;
+        updateDescriptionUI();
+
+    });
+
+    // 게임 설명 버튼의 다음 버튼 이벤트 kdh
+    $gameDescriptionNext.addEventListener('click', e => {
+        if (currentStep < totalSteps) {
+            currentStep++;
+            // 설명 UI 업데이트
+            updateDescriptionUI();
+        }
+    });
+
+    // 게임 설명 버튼의 이전 버튼 이벤트 kdh
+    $gameDescriptionPre.addEventListener('click', e => {
+        if(currentStep > 1) {
+            currentStep--;
+            // 설명 UI 업데이트
+            updateDescriptionUI();
+        }
     });
 
     // 게임 설명 화면의 메인화면으로 돌아가는 버튼 이벤트
@@ -288,7 +339,7 @@ export function start() {
 
         // 메인으로 나가고 게임 초기화
         closeOverModal();
-        initializeGame()
+        initializeGame();
     })
 
     // 홈 버튼 클릭 → 모달 열기
@@ -313,6 +364,9 @@ export function start() {
         clearTimeout(timerId);
         clearInterval(intervalId);
         intervalId = null;
+        
+        // 게임 초기화
+        initializeGame();
     });
 
     // 우클릭 메뉴 막기
