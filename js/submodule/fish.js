@@ -306,6 +306,13 @@ export function start() {
         $viewPort.style.display = 'flex';
         $sea.style.display = 'none';
         $homeModal.style.display = 'none';
+        
+        // 게임 정지
+        $seaBg.style.animationPlayState = 'paused';
+        $fish.classList.remove('show');
+        clearTimeout(timerId);
+        clearInterval(intervalId);
+        intervalId = null;
     });
 
     // 우클릭 메뉴 막기
