@@ -16,7 +16,6 @@ export function updateModalUI(fishNumber, onFinished) {
     $message,
     $clickBtn,
     $modalGameContents,
-    $modalWatch,
     $resultBox,
     $resultMessage,
     $resultScore,
@@ -26,13 +25,14 @@ export function updateModalUI(fishNumber, onFinished) {
     $guideLineMax,
     $clickLeftGuide,
     $clickRightGuide,
+    $modalTimer,
   } = elements;
 
   // ======== 상태관리 변수 및 상수 ======== //
 
   // 무슨 물고기인지에 따라 획득할 수 있는 점수 달라짐.
   let fishingScore = getFishScore(fishNumber);
-  console.log(fishingScore);
+  // console.log(fishingScore);
 
   // 난이도별 세팅
   const difficultySettings = {
@@ -80,6 +80,8 @@ export function updateModalUI(fishNumber, onFinished) {
   const [successMin, successMax] = config.successRange;
   // 감소 타이머
   let decTimerId = null;
+  // 시간 UI 타이머
+  let watchIntervalId = null;
   // 감소 타이머 인터벌 간격
   const decTimerInterval = config.intervalMs;
 
@@ -88,6 +90,17 @@ export function updateModalUI(fishNumber, onFinished) {
 
   // 종료 시간
   const setFishingTime = config.timeLimit;
+  
+  // 타이머에 기록할 남은 시간 변수
+  let remainTime = setFishingTime / 1000; // 5000ms -> 5초
+  // 텍스트로 남은 시간 초기화 (소수점 한 자리까지)
+  $modalTimer.textContent = `${remainTime.toFixed(1)}초`;
+  // 텍스트 색상 초기화
+  $modalTimer.style.color = 'white';
+  // 텍스트 애니메이션 조절 변수
+  let pulseTimer = 0;
+  // 텍스트 애니메이션 동작 클래스 제거
+  $modalTimer.classList.remove('timer-pulse');
 
   // 결과 점수
   let resultScore = 0;
@@ -107,13 +120,54 @@ export function updateModalUI(fishNumber, onFinished) {
   // 게임 시작 시 초기 클릭 방향 가이드 표시
   updateClickGuide(expectedClick, $clickLeftGuide, $clickRightGuide);
 
-  
   // 낚시 게임 버튼 초기화(활성화)
   $clickBtn.disabled = false;
 
+
+  // 0.1초마다 타이머의 시간을 변경하는 인터벌
+  watchIntervalId = setInterval(() => {
+    remainTime -= 0.1;
+
+    if (remainTime <= 0) {
+      remainTime = 0;
+      // 남은 시간이 0보다 작거나 같아지면 자동적으로 인터벌 중지
+      clearInterval(watchIntervalId);
+    }
+
+    // 텍스트 표시
+    $modalTimer.textContent = `${remainTime.toFixed(1)}초`;
+
+    // 남은 시간에 따라 색상 변경
+    if (remainTime <= 1.0) {
+      $modalTimer.style.color = '#f44336'; // 빨강
+    } else if (remainTime <= 2.0) {
+      $modalTimer.style.color = '#ff9800'; // 주황
+    } else {
+      $modalTimer.style.color = 'white';   // 기본색
+    }
+
+    // 0.3초 간격으로만 애니메이션 재실행
+    pulseTimer += 0.1;
+    if (remainTime <= 2.0 && pulseTimer >= 0.3) {
+      $modalTimer.classList.remove('timer-pulse');
+      void $modalTimer.offsetWidth; // 강제 리플로우
+      $modalTimer.classList.add('timer-pulse');
+      pulseTimer = 0; // 초기화
+    }
+
+    // 2초 초과 시 애니메이션 제거
+    if (remainTime > 2.0) {
+      $modalTimer.classList.remove('timer-pulse');
+      pulseTimer = 0;
+    }
+
+  }, 100);
+
   // 지정된 시간이 지난 후 게임 종료
   setTimeout(() => {
-    timeOver(decTimerId);
+
+    // 게이지 감소 인터벌을 멈춤
+    timeOver(decTimerId, watchIntervalId);
 
     // 게임이 종료되어, 점수 판별 전 게이지 업데이트
     updateGaugeColor($gaugeBar, curPercent, successMin, successMax);
@@ -126,6 +180,7 @@ export function updateModalUI(fishNumber, onFinished) {
       onFinished(resultScore, fishingScore);
     }
   }, setFishingTime);
+
 
   // 일정 시간마다 decGaugeMount%씩 감소 (1초마다)
   decTimerId = setInterval(() => {
@@ -144,6 +199,8 @@ export function updateModalUI(fishNumber, onFinished) {
     // 게이지 색상 업데이트 함수
     updateGaugeColor($gaugeBar, curPercent, successMin, successMax);
   }, decTimerInterval);
+
+
 
 
   // ======== 이벤트 리스너 설정 ========== //
@@ -284,12 +341,13 @@ function handleFishingResult(currentPercent, $clickBtn, score, $resultBox, $resu
 }
 
 /**
- * @description ${setTime}초가 지나면 낚시를 종료시키는 함수
- * @param timerId - 게이지를 감소시키는 인터벌 타이머의 아이디
+ * `timeOver` 메서드는 주어진 타이머 ID를 사용하여 게이지 감소를 멈춥니다.
+ *
+ * @param gaugeIntervalId 게이지 감소를 제어하는 타이머의 ID
  */
-function timeOver(timerId) {
+function timeOver(gaugeIntervalId) {
   // 게이지 감소 타이머 멈춤
-  clearInterval(timerId);
-  timerId = null;
+  clearInterval(gaugeIntervalId);
+  gaugeIntervalId = null;
 }
 

@@ -4,7 +4,6 @@ const $gaugeBar = document.getElementById('gauge-bar');
 const $message = document.getElementById('message');
 const $clickBtn = document.getElementById('modal-click-btn');
 const $modalGameContents = document.getElementById('modal-content');
-const $modalWatch = document.getElementById('modal-watch');
 const $sea = document.getElementById('sea-wrapper');
 const $fish = document.querySelector('.fish-btn');
 const $seaBg = document.getElementById('sea-bg');
@@ -27,6 +26,7 @@ const $overOverlay = document.getElementById('modal-overlay-over');
 const $clickLeftGuide = document.getElementById('click-left-guide');
 const $clickRightGuide = document.getElementById('click-right-guide');
 const $restartBtn = document.getElementById('restart-btn');
+const $modalTimer = document.getElementById('modal-timer');
 const $goHomeBtn = document.getElementById('go-home-btn');
 const $homeModal = document.getElementById('home-confirm-modal');
 const $confirmYes = document.getElementById('confirm-yes');
@@ -38,7 +38,6 @@ export default {
     $message,
     $clickBtn,
     $modalGameContents,
-    $modalWatch,
     $sea,
     $fish,
     $seaBg,
@@ -61,6 +60,7 @@ export default {
     $clickLeftGuide,
     $clickRightGuide,
     $restartBtn,
+    $modalTimer,
     $goHomeBtn,
     $homeModal,
     $confirmYes,
