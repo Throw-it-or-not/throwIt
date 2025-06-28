@@ -26,7 +26,7 @@ body{
     background-position: bottom;
     background-size: cover;
     display: flex;
-    justify-content: space-around;
+    justify-content: left;
     align-items: center;
 
 }
@@ -34,9 +34,12 @@ body{
     display: flex;
     flex-direction: column;
     gap: 30px;
+    width: 40%;
+    justify-content: center;
+    align-items: center;
 }
 .view-port .left-box .content {
-    width: 300px;
+    width: 90%;
     height: 150px;
     /*background-color: #f47c3c; !* 오렌지색 *!*/
     color: white;
@@ -116,11 +119,12 @@ body{
     height: 500px;
     text-align: center;
     background-size: contain;
+    background-repeat: no-repeat;
+    margin-top: 167px;
 }
 
 /* ================== 게임 설명 화면 ================== */
 #game-description-screen {
-    height: 100%;
     background-size: contain;
     background: #7f9aee;
     border: 2px solid #808080;
@@ -129,6 +133,20 @@ body{
     align-items: center;
     flex-direction: column;
     gap: 30px;
+    padding: 10px;
+    height: 600px;
+}
+
+#game-description-screen #game-description-title {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#game-description-screen #game-description-title #game-description-title-text {
+    font-size: 90px;
+    margin-top: 20px;
 }
 
 #game-description-screen #home-button {
@@ -141,7 +159,7 @@ body{
     border: 1px solid black;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
     border-radius: 30px;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 #game-description-screen #home-button:hover {
     background: #2980b9;
@@ -152,11 +170,52 @@ body{
 #game-description-screen #game-description {
     background: #1E86E8;
     width: 90%;
+    height: 70%;
     padding: 20px;
     border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-#game-description-screen #game-description #game-description-text {
+#game-description-screen #game-description #game-description-pre {
+    width: 10%;
+    height: 70px;
+    font-size: 30px;
+    border-radius: 20px;
+}
+
+#game-description-screen #game-description #game-description-pre:hover {
+    background: #f47c3c;
+    cursor: pointer;
+}
+
+#game-description-screen #game-description #game-description-next {
+    width: 10%;
+    height: 70px;
+    font-size: 30px;
+    border-radius: 20px;
+}
+
+#game-description-screen #game-description #game-description-next:hover {
+    background: #f47c3c;
+    cursor: pointer;
+}
+
+#game-description-screen #game-description #game-description-text-box {
+    width: 80%;
+    /*border: 2px solid black;*/
+}
+
+#game-description-screen #game-description #game-description-text-box .game-description-text {
+    display: none; /* 기본적으로 모든 콘텐츠는 숨김 */
+}
+
+#game-description-screen #game-description #game-description-text-box .game-description-text.active {
+    display: block; /* active 클래스가 붙은 콘텐츠만 보여줌 */
+}
+
+#game-description-screen #game-description #game-description-text-box p {
     color: #f1f1f1;
     font-size: 30px;
 }
