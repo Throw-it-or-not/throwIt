@@ -36,6 +36,7 @@ const $gameDescriptionNext = document.getElementById('game-description-next'); /
 const $gameDescriptionTextBox = [...document.querySelectorAll('.game-description-text')]; // kdh
 const $countdown = document.getElementById('countdown-text');
 const $catchIt = document.querySelector('.catch-it');
+const $modalFishImg = document.querySelector('#modal-fish-container img');
 
 export default {
     $modalOverlay,
@@ -74,5 +75,6 @@ export default {
     $gameDescriptionNext,
     $gameDescriptionTextBox,
     $countdown,
+    $modalFishImg,
     $catchIt,
 };

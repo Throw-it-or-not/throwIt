@@ -27,13 +27,15 @@ export function updateModalUI(fishNumber, onFinished) {
     $clickRightGuide,
     $modalTimer,
     $countdown,
+    $modalFishImg,
   } = elements;
 
   // ======== 상태관리 변수 및 상수 ======== //
 
   // 무슨 물고기인지에 따라 획득할 수 있는 점수 달라짐.
   let fishingScore = getFishScore(fishNumber);
-  // console.log(fishingScore);
+  // 들어온 물고기에 따라 이미지 변경
+  $modalFishImg.src = `image/modal_fish0${fishNumber + 1}.gif`;
 
   // 난이도별 세팅
   const difficultySettings = {
@@ -236,6 +238,14 @@ export function updateModalUI(fishNumber, onFinished) {
 }
 
 
+/**
+ * 준비와 시작 카운트다운 애니메이션을 보여준 후, 버튼을 활성화하고 콜백을 호출합니다.
+ *
+ * @param {HTMLElement} $countdown 카운트다운 애니메이션을 표시할 DOM 요소
+ * @param {HTMLButtonElement} $clickBtn 활성화할 버튼 요소
+ * @param {Function} onDone 카운트다운이 완료된 후 실행할 콜백 함수
+ * @return {void} 반환값 없음
+ */
 function showReadyStart($countdown, $clickBtn, onDone) {
 
   $countdown.textContent = 'Ready';
