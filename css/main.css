@@ -338,6 +338,26 @@ body{
     background-position: center;
 }
 
+#countdown-text {
+    position: absolute;
+    font-size: 60px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*transform-origin: center center;*/
+    z-index: 999;
+    display: flex;
+    /*animation: fadeInOut 1s ease-in-out;*/
+}
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: scale(0.5) translate(-50%, -50%); }
+    30% { opacity: 1; transform: scale(1.2) translate(-50%, -50%); }
+    100% { opacity: 0; transform: scale(1) translate(-50%, -50%); }
+}
+
 /* 물고기 이미지 */
 #modal-fish-container {
     position: absolute;
