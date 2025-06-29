@@ -84,9 +84,10 @@ body{
     justify-content: start;
     align-items: center;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
     padding: 10px;
     height: 600px;
+    background-image: url(/image/deep_Occean.png);
 }
 
 #game-description-screen #game-description-title {
@@ -97,32 +98,33 @@ body{
 }
 
 #game-description-screen #game-description-title #game-description-title-text {
-    font-size: 90px;
+    font-size: 40px;
     margin-top: 20px;
+    color: #f1f1f1;
 }
 
 #game-description-screen #home-button {
-    width: 300px;
-    height: 100px;
-    background-color: #f47c3c; /* 오렌지색 */
+    position: absolute;
+    top: 30px;
+    right: 70px;
+    font-size: 28px;
+    background-color: transparent;
     color: white;
-    font-size: 40px;
-    font-weight: bold;
-    border: 1px solid black;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-    border-radius: 30px;
-    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
 }
 #game-description-screen #home-button:hover {
-    background: #2980b9;
     /* 손모양 커서! */
     cursor: pointer;
+    color: #ffeb3b;
 }
 
 #game-description-screen #game-description {
-    background: #1E86E8;
+    /*background: #1976d2;*/
+    background: rgba(255, 255, 255, 0.2);
     width: 90%;
-    height: 70%;
+    height: 80%;
     padding: 20px;
     border-radius: 30px;
     display: flex;
@@ -169,7 +171,8 @@ body{
 
 #game-description-screen #game-description #game-description-text-box p {
     color: #f1f1f1;
-    font-size: 30px;
+    font-size: 40px;
+    font-weight: bold;
 }
 
 /* ================== 바다 스테이지 ================== */
@@ -337,6 +340,26 @@ body{
     background-image: url('/image/modal-frame.png');
     background-size: cover;
     background-position: center;
+}
+
+#countdown-text {
+    position: absolute;
+    font-size: 60px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*transform-origin: center center;*/
+    z-index: 999;
+    display: flex;
+    /*animation: fadeInOut 1s ease-in-out;*/
+}
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: scale(0.5) translate(-50%, -50%); }
+    30% { opacity: 1; transform: scale(1.2) translate(-50%, -50%); }
+    100% { opacity: 0; transform: scale(1) translate(-50%, -50%); }
 }
 
 /* 물고기 이미지 */

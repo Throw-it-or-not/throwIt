@@ -34,6 +34,7 @@ const $confirmNo = document.getElementById('confirm-no');
 const $gameDescriptionPre = document.getElementById('game-description-pre'); // kdh
 const $gameDescriptionNext = document.getElementById('game-description-next'); // kdh
 const $gameDescriptionTextBox = [...document.querySelectorAll('.game-description-text')]; // kdh
+const $countdown = document.getElementById('countdown-text');
 
 export default {
     $modalOverlay,
@@ -71,4 +72,5 @@ export default {
     $gameDescriptionPre,
     $gameDescriptionNext,
     $gameDescriptionTextBox,
+    $countdown,
 };
