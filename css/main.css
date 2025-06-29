@@ -243,6 +243,31 @@ body{
     background-color: transparent;
     background-position: center;
 }
+.catch-it{
+    color: #ffeb3b;
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    font-size: 18px;
+    opacity: 0;
+    visibility: hidden;
+}
+.catch-it.active{
+    opacity: 1;
+    visibility: visible;
+    animation: catchFish 0.5s ease-in-out;
+}
+@keyframes catchFish {
+    0%{
+        transform: scale(0);
+    }
+    50%{
+        transform: scale(0.6);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
 .show{
     display: block;
 }
