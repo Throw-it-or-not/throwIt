@@ -36,6 +36,7 @@ export function start() {
         $gameDescriptionNext,
         $gameDescriptionTextBox,
         $catchIt,
+        $modalGameContents,
         $gameLoadBtn,
     } = elements;
 
@@ -45,7 +46,6 @@ export function start() {
     let currentFishNumber = null;
     let totalScore = 0;
 
-    // localStorage.removeItem('throwItState');
     // 낚시대 내구도 용 변수
     let hp = 100;
     let currentHp = getComputedStyle($hpBar).height.slice(0, -1);
@@ -366,7 +366,6 @@ export function start() {
     $resultCloseBtn.addEventListener('click', e => {
         $modalOverlay.style.display = 'none';
         $resultBox.style.display = 'none';
-
         startFishGame();
     });
 
