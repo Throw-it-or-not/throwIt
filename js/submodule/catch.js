@@ -1,4 +1,5 @@
 import elements from './dom.js';
+import {startFishGame} from './fish.js';
 
 
 // ======== 함수 정의 ========= //
@@ -13,7 +14,6 @@ export function updateModalUI(fishNumber, onFinished) {
   // DOM 디스트럭쳐링
   const {
     $gaugeBar,
-    $message,
     $clickBtn,
     $modalGameContents,
     $resultBox,
@@ -138,14 +138,18 @@ export function updateModalUI(fishNumber, onFinished) {
   $guideLineMin.style.bottom = `${successMin}%`;
   $guideLineMax.style.bottom = `${successMax}%`;
 
-  // 게임 시작 시 초기 클릭 방향 가이드 표시
-  updateClickGuide(expectedClick, $clickLeftGuide, $clickRightGuide);
-
   // 낚시 게임 버튼 초기화(비활성화)
   $clickBtn.disabled = true;
 
-  showReadyStart($countdown, $clickBtn, () => {
 
+  // ========== 함수 정의 ========== //
+  /**
+   * changeTimerUI 함수는 0.1초 간격으로 타이머 UI를 업데이트합니다.
+   * 남은 시간을 출력하며 조건에 따라 색상과 애니메이션을 변경합니다.
+   *
+   * @return {void} 이 함수는 반환값이 없습니다.
+   */
+  function changeTimerUI() {
     // 0.1초마다 타이머의 시간을 변경하는 인터벌
     watchIntervalId = setInterval(() => {
       remainTime -= 0.1;
@@ -184,7 +188,14 @@ export function updateModalUI(fishNumber, onFinished) {
       }
 
     }, 100);
+  }
 
+  /**
+   * 게임의 종료를 처리하는 함수. 지정된 시간이 지난 후 게임을 종료하고 결과를 계산 및 표시하며, 종료 시 콜백을 호출한다.
+   *
+   * @return {void} 이 함수는 게임 종료 작업을 수행하며, 반환값은 없다.
+   */
+  function handleEndGame() {
     // 지정된 시간이 지난 후 게임 종료
     setTimeout(() => {
 
@@ -195,15 +206,24 @@ export function updateModalUI(fishNumber, onFinished) {
       updateGaugeColor($gaugeBar, curPercent, successMin, successMax);
 
       // 최종 점수 판결, 종료 박스 열기
-      resultScore = handleFishingResult(curPercent, $clickBtn, fishingScore, $resultBox, $resultMessage, $resultScore, successMin, successMax);
+      resultScore = handleFishingResult(curPercent, fishingScore, successMin, successMax);
 
       // 게임 끝났으니 콜백 호출
       if (typeof onFinished === 'function') {
         onFinished(resultScore, fishingScore);
       }
     }, setFishingTime);
+  }
 
-
+  /**
+   * 일정 시간마다 게이지의 값을 감소시키는 함수입니다. 이 함수는 decTimerInterval 간격으로 실행되며,
+   * 지정된 감소량(decGaugeMount)을 기준으로 현재 게이지 값(curPercent)을 감소시킵니다.
+   * 게이지 값은 0에서 100 사이로 유지됩니다.
+   * 게이지 바의 크기와 색상을 업데이트합니다.
+   *
+   * @return {void} 이 함수는 값을 반환하지 않습니다.
+   */
+  function decGauageInterval() {
     // 일정 시간마다 decGaugeMount%씩 감소 (1초마다)
     decTimerId = setInterval(() => {
       // 타이머가 멈춘 뒤에도 실행되지 않도록 방지
@@ -221,11 +241,175 @@ export function updateModalUI(fishNumber, onFinished) {
       // 게이지 색상 업데이트 함수
       updateGaugeColor($gaugeBar, curPercent, successMin, successMax);
     }, decTimerInterval);
+  }
+  
+  /**
+   * 준비와 시작 카운트다운 애니메이션을 보여준 후, 버튼을 활성화하고 콜백을 호출합니다.
+   *
+   * @param {HTMLElement} $countdown 카운트다운 애니메이션을 표시할 DOM 요소
+   * @param {HTMLButtonElement} $clickBtn 활성화할 버튼 요소
+   * @param {Function} onDone 카운트다운이 완료된 후 실행할 콜백 함수
+   * @return {void} 반환값 없음
+   */
+  function showReadyStart($countdown, $clickBtn, onDone) {
+
+    $countdown.textContent = 'Ready';
+    $countdown.style.display = 'block';
+    $countdown.style.animation = 'none'; // 초기화
+    void $countdown.offsetWidth; // 강제 리플로우
+    $countdown.style.animation = 'fadeInOut 1.2s ease-in-out';
+
+    setTimeout(() => {
+      $countdown.textContent = 'Start!';
+      $countdown.style.animation = 'none'; // 초기화
+      void $countdown.offsetWidth; // 강제 리플로우
+      $countdown.style.animation = 'fadeInOut 1s ease-in-out';
+
+      setTimeout(() => {
+        $countdown.style.display = 'none';
+        // 클릭 버튼 활성화
+        $clickBtn.disabled = false;
+        onDone(); // 게임 시작 콜백
+      }, 1000);
+    }, 1200);
+  }
+
+  /**
+   * @description 물고기 번호에 따라 점수를 반환하는 함수
+   * @param {number} fishNumber - 1 ~ 5 사이의 물고기 종류 번호
+   * @returns {number} 점수
+   */
+  function getFishScore(fishNumber) {
+    switch (fishNumber) {
+      case 0:
+        return 10; // 물고기1: 작고 쉬움
+      case 1:
+        return 20;
+      case 2:
+        return 30;
+      case 3:
+        return 40;
+      case 4:
+        return 50; // 물고기5: 크고 어려움
+      default:
+        return 0;  // 예외 처리
+    }
+  }
+
+  function setLevel(fishNumber) {
+    switch (fishNumber) {
+      case 0:
+        return 'easy';
+      case 1:
+        return 'easy';
+      case 2:
+        return 'normal';
+      case 3:
+        return 'normal';
+      case 4:
+        return 'hard';
+      default:
+        return 'easy';
+    }
+  }
+
+  /**
+   * @description 게이지 색상 업데이트 함수
+   * @param $gaugeBar - 색상을 변화시킬 게이지 바 요소 노드
+   * @param currentPercent - 현재 낚시대 게이지 %
+   * @param successMin - 게임 성공 범위 최소값
+   * @param successMax - 게임 성공 범위 최대값
+   */
+  function updateGaugeColor($gaugeBar, currentPercent, successMin, successMax) {
+    if (currentPercent > successMax) {
+      $gaugeBar.style.backgroundColor = '#f44336'; // 빨강
+    } else if (currentPercent < successMin) {
+      $gaugeBar.style.backgroundColor = '#ffeb3b'; // 노랑
+    } else {
+      $gaugeBar.style.backgroundColor = '#4caf50'; // 초록 (기본)
+    }
+  }
+
+
+  /**
+   * 클릭 안내 가이드를 업데이트하는 함수
+   *
+   * @param {number} expectedClick 예상 클릭 값. 0이면 왼쪽 가이드가 표시되고, 다른 값이면 오른쪽 가이드가 표시됩니다.
+   * @param {HTMLElement} $clickLeftGuide 왼쪽 클릭 가이드를 나타내는 DOM 요소
+   * @param {HTMLElement} $clickRightGuide 오른쪽 클릭 가이드를 나타내는 DOM 요소
+   * @return {void} 반환값이 없습니다.
+   */
+  function updateClickGuide(expectedClick, $clickLeftGuide, $clickRightGuide) {
+    if (expectedClick === 0) {
+      $clickLeftGuide.style.display = 'block';
+      $clickRightGuide.style.display = 'none';
+    } else {
+      $clickLeftGuide.style.display = 'none';
+      $clickRightGuide.style.display = 'block';
+    }
+  }
+
+  /**
+   * @description - 낚시 결과를 처리하는 함수
+   * @param currentPercent - 현재 게이지 바 퍼센트
+   * @param score - 반환할 점수
+   * @param successMin - 게임 성공 범위 최소값
+   * @param successMax - 게임 성공 범위 최대값
+   * @returns {number} 점수
+   */
+  function handleFishingResult(currentPercent, score, successMin, successMax) {
+
+    $clickBtn.disabled = true;
+
+    // 현재 게이지가 70 이상 90 이하 = 성공, 이외 실패
+    if (currentPercent >= successMin && currentPercent <= successMax) { // 성공
+      $resultBox.style.display = 'block';
+      $resultMessage.textContent = '🎉 성공!';
+      $resultScore.textContent = `획득 점수: ${score}점`
+    } else {  // 실패
+      score = 0;
+      $resultBox.style.display = 'block';
+      $resultMessage.textContent = '😢 실패!';
+      $resultScore.textContent = `획득 점수: ${score}점`
+    }
+
+    return score;
+  }
+
+  /**
+   * `timeOver` 메서드는 주어진 타이머 ID를 사용하여 게이지 감소를 멈춥니다.
+   *
+   * @param gaugeIntervalId 게이지 감소를 제어하는 타이머의 ID
+   */
+  function timeOver(gaugeIntervalId) {
+    // 게이지 감소 타이머 멈춤
+    clearInterval(gaugeIntervalId);
+    gaugeIntervalId = null;
+  }
+
+  // ========== 함수 실행 부분 ========== //
+  
+  // 게임 시작 시 초기 클릭 방향 가이드 표시
+  updateClickGuide(expectedClick, $clickLeftGuide, $clickRightGuide);
+
+  
+  // ready, start를 보여준 후 콜백 함수를 실행
+  showReadyStart($countdown, $clickBtn, () => {
+
+    // 타이머 UI 업데이트 함수
+    changeTimerUI();
+
+    // 정해진 낚시 시간이 끝난 뒤 게임 종료 처리를 하는 함수
+    handleEndGame();
+
+    // 모드에 따라 정해진 시간의 인터벌 간격으로 게이지가 감소
+    decGauageInterval();
 
   });
 
 
-  // ======== 이벤트 리스너 설정 ========== //
+
+  // ========== 이벤트 리스너 설정 ========== //
 
   // 좌/우 클릭 번갈아가며 게이지 증가
   $clickBtn.addEventListener('mousedown', (e) => {
@@ -253,154 +437,15 @@ export function updateModalUI(fishNumber, onFinished) {
     }
   });
 
+  // 결과 창에서 닫기 버튼 누르면 결과 창과 모달 닫힘.
+  $resultCloseBtn.addEventListener('click', e => {
+    $modalOverlay.style.display = 'none';
+    $resultBox.style.display = 'none';
+    startFishGame();
+  });
+
 }
 
 
-/**
- * 준비와 시작 카운트다운 애니메이션을 보여준 후, 버튼을 활성화하고 콜백을 호출합니다.
- *
- * @param {HTMLElement} $countdown 카운트다운 애니메이션을 표시할 DOM 요소
- * @param {HTMLButtonElement} $clickBtn 활성화할 버튼 요소
- * @param {Function} onDone 카운트다운이 완료된 후 실행할 콜백 함수
- * @return {void} 반환값 없음
- */
-function showReadyStart($countdown, $clickBtn, onDone) {
 
-  $countdown.textContent = 'Ready';
-  $countdown.style.display = 'block';
-  $countdown.style.animation = 'none'; // 초기화
-  void $countdown.offsetWidth; // 강제 리플로우
-  $countdown.style.animation = 'fadeInOut 1.2s ease-in-out';
-
-  setTimeout(() => {
-    $countdown.textContent = 'Start!';
-    $countdown.style.animation = 'none'; // 초기화
-    void $countdown.offsetWidth; // 강제 리플로우
-    $countdown.style.animation = 'fadeInOut 1s ease-in-out';
-
-    setTimeout(() => {
-      $countdown.style.display = 'none';
-      // 클릭 버튼 활성화
-      $clickBtn.disabled = false;
-      onDone(); // 게임 시작 콜백
-    }, 1000);
-  }, 1200);
-}
-
-/**
- * @description 물고기 번호에 따라 점수를 반환하는 함수
- * @param {number} fishNumber - 1 ~ 5 사이의 물고기 종류 번호
- * @returns {number} 점수
- */
-function getFishScore(fishNumber) {
-  switch (fishNumber) {
-    case 0:
-      return 10; // 물고기1: 작고 쉬움
-    case 1:
-      return 20;
-    case 2:
-      return 30;
-    case 3:
-      return 40;
-    case 4:
-      return 50; // 물고기5: 크고 어려움
-    default:
-      return 0;  // 예외 처리
-  }
-}
-
-function setLevel(fishNumber) {
-  switch (fishNumber) {
-    case 0:
-      return 'easy';
-    case 1:
-      return 'easy';
-    case 2:
-      return 'normal';
-    case 3:
-      return 'normal';
-    case 4:
-      return 'hard';
-    default:
-      return 'easy';
-  }
-}
-
-/**
- * @description 게이지 색상 업데이트 함수
- * @param $gaugeBar - 색상을 변화시킬 게이지 바 요소 노드
- * @param currentPercent - 현재 낚시대 게이지 %
- * @param successMin - 게임 성공 범위 최소값
- * @param successMax - 게임 성공 범위 최대값
- */
-function updateGaugeColor($gaugeBar, currentPercent, successMin, successMax) {
-  if (currentPercent > successMax) {
-    $gaugeBar.style.backgroundColor = '#f44336'; // 빨강
-  } else if (currentPercent < successMin) {
-    $gaugeBar.style.backgroundColor = '#ffeb3b'; // 노랑
-  } else {
-    $gaugeBar.style.backgroundColor = '#4caf50'; // 초록 (기본)
-  }
-}
-
-
-/**
- * 클릭 안내 가이드를 업데이트하는 함수
- *
- * @param {number} expectedClick 예상 클릭 값. 0이면 왼쪽 가이드가 표시되고, 다른 값이면 오른쪽 가이드가 표시됩니다.
- * @param {HTMLElement} $clickLeftGuide 왼쪽 클릭 가이드를 나타내는 DOM 요소
- * @param {HTMLElement} $clickRightGuide 오른쪽 클릭 가이드를 나타내는 DOM 요소
- * @return {void} 반환값이 없습니다.
- */
-function updateClickGuide(expectedClick, $clickLeftGuide, $clickRightGuide) {
-  if (expectedClick === 0) {
-    $clickLeftGuide.style.display = 'block';
-    $clickRightGuide.style.display = 'none';
-  } else {
-    $clickLeftGuide.style.display = 'none';
-    $clickRightGuide.style.display = 'block';
-  }
-}
-
-/**
- * @description - 낚시 결과를 처리하는 함수
- * @param currentPercent - 현재 게이지 바 퍼센트
- * @param $clickBtn - 게이지 변경 버튼 요소 노드
- * @param score - 반환할 점수
- * @param $resultBox - 결과 정보를 나타낼 창의 요소 노드
- * @param $resultMessage - 결과 메시지 요소 노드
- * @param $resultScore - 게임 결과를 통해 변경되는 최종 점수
- * @param successMin - 게임 성공 범위 최소값
- * @param successMax - 게임 성공 범위 최대값
- * @returns {number} 점수
- */
-function handleFishingResult(currentPercent, $clickBtn, score, $resultBox, $resultMessage, $resultScore, successMin, successMax) {
-
-  $clickBtn.disabled = true;
-
-  // 현재 게이지가 70 이상 90 이하 = 성공, 이외 실패
-  if (currentPercent >= successMin && currentPercent <= successMax) { // 성공
-    $resultBox.style.display = 'block';
-    $resultMessage.textContent = '🎉 성공!';
-    $resultScore.textContent = `획득 점수: ${score}점`
-  } else {  // 실패
-    score = 0;
-    $resultBox.style.display = 'block';
-    $resultMessage.textContent = '😢 실패!';
-    $resultScore.textContent = `획득 점수: ${score}점`
-  }
-
-  return score;
-}
-
-/**
- * `timeOver` 메서드는 주어진 타이머 ID를 사용하여 게이지 감소를 멈춥니다.
- *
- * @param gaugeIntervalId 게이지 감소를 제어하는 타이머의 ID
- */
-function timeOver(gaugeIntervalId) {
-  // 게이지 감소 타이머 멈춤
-  clearInterval(gaugeIntervalId);
-  gaugeIntervalId = null;
-}
 

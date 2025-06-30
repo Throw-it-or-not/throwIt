@@ -1,4 +1,4 @@
-import {start} from './submodule/fish.js';
+import {start} from './submodule/menu.js';
 
 (function() {
   // ======== 실행 코드 ========== //
