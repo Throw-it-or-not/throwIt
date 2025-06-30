@@ -37,6 +37,8 @@ const $gameDescriptionTextBox = [...document.querySelectorAll('.game-description
 const $countdown = document.getElementById('countdown-text');
 const $catchIt = document.querySelector('.catch-it');
 const $modalFishImg = document.querySelector('#modal-fish-container img');
+const $gameLoadBtn = document.querySelector('.view-port .left-box .score-log-button');
+
 
 export default {
     $modalOverlay,
@@ -77,4 +79,5 @@ export default {
     $countdown,
     $modalFishImg,
     $catchIt,
+    $gameLoadBtn,
 };
