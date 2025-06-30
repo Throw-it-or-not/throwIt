@@ -206,7 +206,7 @@ export function updateModalUI(fishNumber, onFinished) {
       updateGaugeColor($gaugeBar, curPercent, successMin, successMax);
 
       // 최종 점수 판결, 종료 박스 열기
-      resultScore = handleFishingResult(curPercent, $clickBtn, fishingScore, $resultBox, $resultMessage, $resultScore, successMin, successMax);
+      resultScore = handleFishingResult(curPercent, fishingScore, successMin, successMax);
 
       // 게임 끝났으니 콜백 호출
       if (typeof onFinished === 'function') {
@@ -352,16 +352,12 @@ export function updateModalUI(fishNumber, onFinished) {
   /**
    * @description - 낚시 결과를 처리하는 함수
    * @param currentPercent - 현재 게이지 바 퍼센트
-   * @param $clickBtn - 게이지 변경 버튼 요소 노드
    * @param score - 반환할 점수
-   * @param $resultBox - 결과 정보를 나타낼 창의 요소 노드
-   * @param $resultMessage - 결과 메시지 요소 노드
-   * @param $resultScore - 게임 결과를 통해 변경되는 최종 점수
    * @param successMin - 게임 성공 범위 최소값
    * @param successMax - 게임 성공 범위 최대값
    * @returns {number} 점수
    */
-  function handleFishingResult(currentPercent, $clickBtn, score, $resultBox, $resultMessage, $resultScore, successMin, successMax) {
+  function handleFishingResult(currentPercent, score, successMin, successMax) {
 
     $clickBtn.disabled = true;
 
