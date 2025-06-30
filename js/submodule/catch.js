@@ -138,13 +138,11 @@ export function updateModalUI(fishNumber, onFinished) {
   $guideLineMin.style.bottom = `${successMin}%`;
   $guideLineMax.style.bottom = `${successMax}%`;
 
-  // 게임 시작 시 초기 클릭 방향 가이드 표시
-  updateClickGuide(expectedClick, $clickLeftGuide, $clickRightGuide);
-
   // 낚시 게임 버튼 초기화(비활성화)
   $clickBtn.disabled = true;
 
-  
+
+  // ========== 함수 정의 ========== //
   /**
    * changeTimerUI 함수는 0.1초 간격으로 타이머 UI를 업데이트합니다.
    * 남은 시간을 출력하며 조건에 따라 색상과 애니메이션을 변경합니다.
@@ -192,11 +190,12 @@ export function updateModalUI(fishNumber, onFinished) {
     }, 100);
   }
 
-  showReadyStart($countdown, $clickBtn, () => {
-
-    // 타이머 UI 업데이트 함수
-    changeTimerUI();
-
+  /**
+   * 게임의 종료를 처리하는 함수. 지정된 시간이 지난 후 게임을 종료하고 결과를 계산 및 표시하며, 종료 시 콜백을 호출한다.
+   *
+   * @return {void} 이 함수는 게임 종료 작업을 수행하며, 반환값은 없다.
+   */
+  function handleEndGame() {
     // 지정된 시간이 지난 후 게임 종료
     setTimeout(() => {
 
@@ -214,8 +213,17 @@ export function updateModalUI(fishNumber, onFinished) {
         onFinished(resultScore, fishingScore);
       }
     }, setFishingTime);
+  }
 
-
+  /**
+   * 일정 시간마다 게이지의 값을 감소시키는 함수입니다. 이 함수는 decTimerInterval 간격으로 실행되며,
+   * 지정된 감소량(decGaugeMount)을 기준으로 현재 게이지 값(curPercent)을 감소시킵니다.
+   * 게이지 값은 0에서 100 사이로 유지됩니다.
+   * 게이지 바의 크기와 색상을 업데이트합니다.
+   *
+   * @return {void} 이 함수는 값을 반환하지 않습니다.
+   */
+  function decGauageInterval() {
     // 일정 시간마다 decGaugeMount%씩 감소 (1초마다)
     decTimerId = setInterval(() => {
       // 타이머가 멈춘 뒤에도 실행되지 않도록 방지
@@ -233,11 +241,8 @@ export function updateModalUI(fishNumber, onFinished) {
       // 게이지 색상 업데이트 함수
       updateGaugeColor($gaugeBar, curPercent, successMin, successMax);
     }, decTimerInterval);
-
-  });
-
-
-  // ========== 함수 정의 ========== //
+  }
+  
   /**
    * 준비와 시작 카운트다운 애니메이션을 보여준 후, 버튼을 활성화하고 콜백을 호출합니다.
    *
@@ -386,8 +391,29 @@ export function updateModalUI(fishNumber, onFinished) {
     gaugeIntervalId = null;
   }
 
+  // ========== 함수 실행 부분 ========== //
+  
+  // 게임 시작 시 초기 클릭 방향 가이드 표시
+  updateClickGuide(expectedClick, $clickLeftGuide, $clickRightGuide);
 
-  // ======== 이벤트 리스너 설정 ========== //
+  
+  // ready, start를 보여준 후 콜백 함수를 실행
+  showReadyStart($countdown, $clickBtn, () => {
+
+    // 타이머 UI 업데이트 함수
+    changeTimerUI();
+
+    // 정해진 낚시 시간이 끝난 뒤 게임 종료 처리를 하는 함수
+    handleEndGame();
+
+    // 모드에 따라 정해진 시간의 인터벌 간격으로 게이지가 감소
+    decGauageInterval();
+
+  });
+
+
+
+  // ========== 이벤트 리스너 설정 ========== //
 
   // 좌/우 클릭 번갈아가며 게이지 증가
   $clickBtn.addEventListener('mousedown', (e) => {
