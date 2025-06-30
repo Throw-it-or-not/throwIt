@@ -36,6 +36,7 @@ export function start() {
         $gameDescriptionNext,
         $gameDescriptionTextBox,
         $catchIt,
+        $gameLoadBtn,
     } = elements;
 
     let intervalId = null;
@@ -234,7 +235,6 @@ export function start() {
 
     }
 
-    // ======== 이벤트 리스너 설정 ========== //
     function startFishGame() {
         if (intervalId !== null) return; // 중복 방지
 
@@ -249,6 +249,8 @@ export function start() {
         }, 1000);
     }
 
+
+    // ======== 이벤트 리스너 설정 ========== //
     $fish.addEventListener('click', e => {
 
         stopped = true;
@@ -280,6 +282,23 @@ export function start() {
     })
 
     // event.js 내용
+    // 불러오기 버튼 이벤트
+    $gameLoadBtn.addEventListener('click', e => {
+        // 인트로 화면 사라지게 하기
+        $viewPort.style.display = 'none';
+
+        // 바다 스테이지 화면 불러오기
+        $sea.style.display = 'block';
+
+        // 로컬 스토리지에 저장된 값 변수에 저장
+        const saved = localStorage.getItem('throwItState');
+        if (saved) {
+            const { score, hp } = JSON.parse(saved);
+            console.log('저장된 점수:', score);
+            console.log('저장된 HP:', hp);
+        }
+        startFishGame();
+    });
     //클릭 이벤트
     $startBtn.addEventListener('click', e => {
         // 인트로 화면 사라지게 하기
@@ -363,6 +382,13 @@ export function start() {
 
     // "예" → 인트로 화면으로 이동
     $confirmYes.addEventListener('click', () => {
+        const gameState = {
+            score: totalScore,
+            hp: hp
+        };
+        console.log(gameState);
+        localStorage.setItem('throwItState', JSON.stringify(gameState));
+
         $viewPort.style.display = 'flex';
         $sea.style.display = 'none';
         $homeModal.style.display = 'none';
