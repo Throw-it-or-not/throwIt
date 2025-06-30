@@ -36,6 +36,7 @@ export function start() {
         $gameDescriptionNext,
         $gameDescriptionTextBox,
         $catchIt,
+        $modalGameContents,
     } = elements;
 
     let intervalId = null;
@@ -338,7 +339,6 @@ export function start() {
     $resultCloseBtn.addEventListener('click', e => {
         $modalOverlay.style.display = 'none';
         $resultBox.style.display = 'none';
-
         startFishGame();
     });
 
