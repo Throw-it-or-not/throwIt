@@ -37,6 +37,7 @@ export function start() {
         $gameDescriptionTextBox,
         $catchIt,
         $modalGameContents,
+        $gameLoadBtn,
     } = elements;
 
     let intervalId = null;
@@ -128,7 +129,7 @@ export function start() {
 
     function decreaseHp(finalScore, fishingScore){
         if(finalScore === 0){
-            console.log(`실패 hp 감소 시작`)
+            // console.log(`실패 hp 감소 시작`)
             switch (fishingScore){
                 case 10:
                     hp -= 10;
@@ -167,12 +168,12 @@ export function start() {
     }
 
     function showHp(hp) {
-        console.log(currentHp)
+        // console.log(currentHp)
         if(currentHp <= 0) {
             hp = 0;
         }
         currentHp = hp;
-        console.log(currentHp)
+        // console.log(currentHp)
         $hpBar.style.height = `${currentHp}%`;
     }
 
@@ -235,7 +236,6 @@ export function start() {
 
     }
 
-    // ======== 이벤트 리스너 설정 ========== //
     function startFishGame() {
         if (intervalId !== null) return; // 중복 방지
 
@@ -250,6 +250,8 @@ export function start() {
         }, 1000);
     }
 
+
+    // ======== 이벤트 리스너 설정 ========== //
     $fish.addEventListener('click', e => {
 
         stopped = true;
@@ -269,7 +271,7 @@ export function start() {
         }
 
         updateModalUI(currentFishNumber, (finalScore, fishingScore) => {
-            console.log(`🎯 최종 점수: ${finalScore}`);
+            // console.log(`🎯 최종 점수: ${finalScore}`);
             // 여기서 이후 UI 업데이트나 게임 진행 가능
             stopped = false;
             writeLog(finalScore);
@@ -281,6 +283,31 @@ export function start() {
     })
 
     // event.js 내용
+    // 불러오기 버튼 이벤트
+    $gameLoadBtn.addEventListener('click', e => {
+        // 인트로 화면 사라지게 하기
+        $viewPort.style.display = 'none';
+
+        // 바다 스테이지 화면 불러오기
+        $sea.style.display = 'block';
+
+        // 로컬 스토리지에 저장된 값 변수에 저장
+        const saved = localStorage.getItem('throwItState');
+        if (saved) {
+            const { savedScore, savedHp } = JSON.parse(saved);
+            totalScore = savedScore;
+            hp = savedHp;
+            currentHp = savedHp;
+            // console.log('저장된 점수:', savedScore);
+            // console.log('저장된 HP:', savedHp);
+            // 점수 텍스트 로드된 데이터에 맞춰서 로딩
+            $score.textContent = `${totalScore}`;
+            // hp 바 로드된 데이터에 맞춰서 로딩
+            showHp(hp);
+        }
+        startFishGame();
+    });
+
     //클릭 이벤트
     $startBtn.addEventListener('click', e => {
         // 인트로 화면 사라지게 하기
@@ -363,6 +390,13 @@ export function start() {
 
     // "예" → 인트로 화면으로 이동
     $confirmYes.addEventListener('click', () => {
+        const gameState = {
+            savedScore: totalScore,
+            savedHp: hp
+        };
+
+        localStorage.setItem('throwItState', JSON.stringify(gameState));
+
         $viewPort.style.display = 'flex';
         $sea.style.display = 'none';
         $homeModal.style.display = 'none';
