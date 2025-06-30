@@ -144,9 +144,14 @@ export function updateModalUI(fishNumber, onFinished) {
   // 낚시 게임 버튼 초기화(비활성화)
   $clickBtn.disabled = true;
 
-
-  showReadyStart($countdown, $clickBtn, () => {
-
+  
+  /**
+   * changeTimerUI 함수는 0.1초 간격으로 타이머 UI를 업데이트합니다.
+   * 남은 시간을 출력하며 조건에 따라 색상과 애니메이션을 변경합니다.
+   *
+   * @return {void} 이 함수는 반환값이 없습니다.
+   */
+  function changeTimerUI() {
     // 0.1초마다 타이머의 시간을 변경하는 인터벌
     watchIntervalId = setInterval(() => {
       remainTime -= 0.1;
@@ -185,6 +190,12 @@ export function updateModalUI(fishNumber, onFinished) {
       }
 
     }, 100);
+  }
+
+  showReadyStart($countdown, $clickBtn, () => {
+
+    // 타이머 UI 업데이트 함수
+    changeTimerUI();
 
     // 지정된 시간이 지난 후 게임 종료
     setTimeout(() => {
