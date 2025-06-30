@@ -45,6 +45,7 @@ export function start() {
     let currentFishNumber = null;
     let totalScore = 0;
 
+    // localStorage.removeItem('throwItState');
     // 낚시대 내구도 용 변수
     let hp = 100;
     let currentHp = getComputedStyle($hpBar).height.slice(0, -1);
@@ -128,7 +129,7 @@ export function start() {
 
     function decreaseHp(finalScore, fishingScore){
         if(finalScore === 0){
-            console.log(`실패 hp 감소 시작`)
+            // console.log(`실패 hp 감소 시작`)
             switch (fishingScore){
                 case 10:
                     hp -= 10;
@@ -167,12 +168,12 @@ export function start() {
     }
 
     function showHp(hp) {
-        console.log(currentHp)
+        // console.log(currentHp)
         if(currentHp <= 0) {
             hp = 0;
         }
         currentHp = hp;
-        console.log(currentHp)
+        // console.log(currentHp)
         $hpBar.style.height = `${currentHp}%`;
     }
 
@@ -270,7 +271,7 @@ export function start() {
         }
 
         updateModalUI(currentFishNumber, (finalScore, fishingScore) => {
-            console.log(`🎯 최종 점수: ${finalScore}`);
+            // console.log(`🎯 최종 점수: ${finalScore}`);
             // 여기서 이후 UI 업데이트나 게임 진행 가능
             stopped = false;
             writeLog(finalScore);
@@ -293,12 +294,20 @@ export function start() {
         // 로컬 스토리지에 저장된 값 변수에 저장
         const saved = localStorage.getItem('throwItState');
         if (saved) {
-            const { score, hp } = JSON.parse(saved);
-            console.log('저장된 점수:', score);
-            console.log('저장된 HP:', hp);
+            const { savedScore, savedHp } = JSON.parse(saved);
+            totalScore = savedScore;
+            hp = savedHp;
+            currentHp = savedHp;
+            // console.log('저장된 점수:', savedScore);
+            // console.log('저장된 HP:', savedHp);
+            // 점수 텍스트 로드된 데이터에 맞춰서 로딩
+            $score.textContent = `${totalScore}`;
+            // hp 바 로드된 데이터에 맞춰서 로딩
+            showHp(hp);
         }
         startFishGame();
     });
+
     //클릭 이벤트
     $startBtn.addEventListener('click', e => {
         // 인트로 화면 사라지게 하기
@@ -383,10 +392,10 @@ export function start() {
     // "예" → 인트로 화면으로 이동
     $confirmYes.addEventListener('click', () => {
         const gameState = {
-            score: totalScore,
-            hp: hp
+            savedScore: totalScore,
+            savedHp: hp
         };
-        console.log(gameState);
+
         localStorage.setItem('throwItState', JSON.stringify(gameState));
 
         $viewPort.style.display = 'flex';
