@@ -243,41 +243,67 @@ body{
     background-color: transparent;
     background-position: center;
 }
+.catch-it{
+    color: #ffeb3b;
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    font-size: 18px;
+    opacity: 0;
+    visibility: hidden;
+}
+.catch-it.active{
+    opacity: 1;
+    visibility: visible;
+    animation: catchFish 0.5s ease-in-out;
+}
+@keyframes catchFish {
+    0%{
+        transform: scale(0);
+    }
+    50%{
+        transform: scale(0.6);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
 .show{
     display: block;
 }
+
 #hp-area{
-    box-sizing: border-box;
     position: absolute;
-    width: 36px;
+    width: 28px;
     height: 200px;
-    background-color: #DC7B05;
-    bottom: -3px;
+    border: 3px solid #B14E05;
+    border-radius: 6px;
+    background-color: #FFD789;
+    bottom: 10px;
     right: 20px;
-    border-radius: 8px 8px 0 0;
-    border: 3px solid #5B2B2A;
 }
 #hp-area::before{
     content: '';
     display: block;
+    box-sizing: border-box;
     position: absolute;
-    width: 24px;
+    width: 30px;
     left: 50%;
+    top: -4px;
     transform: translateX(-50%);
-    border: 3px solid #B14E05;
-    height: 100%;
-    border-radius: 6px 6px 0 0;
-    background-color: #FFD789;
+    height: 203px;
+    border-radius: 8px;
+    border: 3px solid #5B2B2A;
 }
 #hp-bar{
-    width: 24px;
+    width: 22px;
     height: 100%;
     background-color: #3DFF00;
     position: absolute;
     left: 50%;
-    bottom: -2px;
+    bottom: 0;
     transform: translateX(-50%);
-    border-radius: 4px 4px 0 0;
+    border-radius: 4px;
     border-top: 2px solid #0BCD00;
     z-index: 1;
 }

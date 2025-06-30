@@ -35,6 +35,7 @@ export function start() {
         $gameDescriptionPre,
         $gameDescriptionNext,
         $gameDescriptionTextBox,
+        $catchIt,
     } = elements;
 
     let intervalId = null;
@@ -202,6 +203,8 @@ export function start() {
 
         $score.textContent = `${totalScore}`;
 
+        $catchIt.classList.remove('active');
+
     }
 
     function closeOverModal() {
@@ -209,6 +212,7 @@ export function start() {
         $overOverlay.style.display = 'none';
         $sea.style.display = 'none';
     }
+
 
     // 게임 설명 화면에서의 다음, 이전 버튼 누를 때 화면 전환 함수 - kdh
     function updateDescriptionUI() {
@@ -250,13 +254,17 @@ export function start() {
         stopped = true;
         if(stopped){
 
+            $catchIt.classList.add('active');
             $seaBg.style.animationPlayState = 'paused';
-            $fish.classList.remove('show');
+
             clearTimeout(timerId);
             clearInterval(intervalId);
             intervalId = null;
 
-            $modalOverlay.style.display = 'flex';
+            setTimeout(() => {
+                $fish.classList.remove('show');
+                $modalOverlay.style.display = 'flex';
+            }, 600);
         }
 
         updateModalUI(currentFishNumber, (finalScore, fishingScore) => {
@@ -265,6 +273,7 @@ export function start() {
             stopped = false;
             writeLog(finalScore);
             showHp(decreaseHp(finalScore, fishingScore));
+            $catchIt.classList.remove('active');
 
         });
 
