@@ -349,10 +349,19 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url('../image/modal_bg.png');
+    background-image: url('../image/easy_bg.png');
     background-size: cover;      /* 배경이 요소에 꽉 차게 */
     background-position: center; /* 가운데 정렬 */
     background-repeat: no-repeat;
+}
+#modal-content.easy{
+    background-image: url('../image/easy_bg.png');
+}
+#modal-content.normal{
+    background-image: url('../image/normal_bg.png');
+}
+#modal-content.hard{
+    background-image: url('../image/hard_bg.png');
 }
 #modal-content::before{
     content: '';
@@ -392,7 +401,7 @@ body{
     position: absolute;
     width: 70%;
     height: 260px;
-    top: 39px;
+    top: 32px;
 }
 #modal-fish-container img {
     width: 100%;

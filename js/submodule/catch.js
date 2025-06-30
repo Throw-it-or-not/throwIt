@@ -71,6 +71,24 @@ export function updateModalUI(fishNumber, onFinished) {
   // 난이도 결정
   const level = setLevel(fishNumber);
   const config = difficultySettings[level];
+  // 난이도 결정에 따른 모달 bg 변경
+  switch (level) {
+      case "easy":
+          $modalGameContents.classList.remove('hard');
+          $modalGameContents.classList.remove('normal');
+          $modalGameContents.classList.add('easy');
+          break;
+      case "normal":
+          $modalGameContents.classList.remove('easy');
+          $modalGameContents.classList.remove('hard');
+          $modalGameContents.classList.add('normal');
+          break;
+      case "hard":
+          $modalGameContents.classList.remove('easy');
+          $modalGameContents.classList.remove('normal');
+          $modalGameContents.classList.add('hard');
+          break;
+  }
   // 한 번의 클릭 당 증가하는 게이지 양
   const incGaugeMount = config.incGaugeAmount;
   // 한 번에 감소하는 게이지 양
