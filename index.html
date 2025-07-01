@@ -1,40 +1,91 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>ThrowIt!</title>
-  <link rel="stylesheet" href="css/main.css">
-  <script type="module" src="js/app.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ThrowIt!</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/image/favicon-32x32.png">
+    <link rel="stylesheet" href="css/main.css">
+    <script type="module" src="js/app.js" defer></script>
 </head>
+
 <body>
     <div id="throwit-wrap">
         <!-- 인트로 화면 -->
         <div class="view-port">
             <div class="left-box">
                 <div class="content">깊은 바다의 전설</div>
-                <button class="start-button">게임시작</button>
+                <button class="btn score-log-button">불러오기</button>
+                <button class="btn start-button">게임시작</button>
+                <button class="btn description-button">게임설명</button>
             </div>
-            <div class="main-image">
-                메인 화면<br>그림
+            <div class="main-image"></div>
+        </div>
+
+        <!-- 게임 설명 화면-->
+        <div id="game-description-screen">
+            <div id="game-description-title">
+                <span id="game-description-title-text">게임설명</span>
+                <button id="home-button">
+                    <i class="fas fa-home"></i>
+                </button>
+            </div>
+            <div id="game-description">
+                <button id="game-description-pre">이전</button>
+                <div id="game-description-text-box">
+                    <div class="game-description-text active" id="step-1">
+                        <p>1. 움직이는 물고기를 마우스로 클릭합니다.</p>
+                    </div>
+                    <div class="game-description-text" id="step-2">
+                        <p>2. 클릭하면 물고기 잡는 화면에서 물고기가 도망가려고 하면 게이지바가 내려갑니다.</p>
+                    </div>
+                    <div class="game-description-text" id="step-3">
+                        <p>3. 그 때 마우스 좌, 우를 클릭하여 게이지바를 위로 올리세요.</p>
+                    </div>
+                    <div class="game-description-text" id="step-4">
+                        <p>4. 타이머가 종료 될 때 게이지바가 초록색이면 잡히고 점수가 올라갑니다.</p>
+                    </div>
+                    <div class="game-description-text" id="step-5">
+                        <p>5. 물고기를 잡아서 점수를 올리세요.</p>
+                    </div>
+
+                </div>
+                <button id="game-description-next">다음</button>
             </div>
         </div>
 
         <!-- 바다 스테이지 화면-->
         <div id="sea-wrapper">
             <div id="sea-bg"></div>
-            <button class="fish-btn"></button>
-            <div id="score-area"></div>
+            <button class="fish-btn">
+                <i class="catch-it">잡았다!!</i>
+            </button>
+            <button id="go-home-btn" class="home-icon-button">
+                <i class="fas fa-home"></i>
+            </button>
+            <div id="score-area">
+                <p class="score"></p>
+            </div>
+            <div id="hp-area">
+                <div id="hp-bar"></div>
+            </div>
         </div>
 
 
         <!-- 낚시 모달 -->
         <div class="modal-overlay" id="modal-overlay">
+            <img src="image/fishingLeftClick.png" alt="왼쪽 클릭 유도" id="click-left-guide" class="click-guide" />
+            <img src="image/fishingRightClick.png" alt="오른쪽 클릭 유도" id="click-right-guide" class="click-guide" />
+            <!--
+                물고기 난이도에 따라 bg 변경을 위해 class 추가
+                easy: easy
+                normal: normal
+                hard: hard
+            /-->
             <div class="modal-content" id="modal-content">
-                <div id="score-display">점수: 0점</div>
-
+                <div id="countdown-text" class="countdown-text">Ready</div>
                 <div id="modal-fish-container">
                     <img src="#" alt="물고기"/>
                 </div>
@@ -46,7 +97,8 @@
                 </div>
 
                 <button id="modal-click-btn">클릭!</button>
-                <div id="modal-watch"></div>
+
+                <div id="modal-timer">5.0초</div>
 
                 <div id="result-box">
                     <p id="result-message">🎉 성공!</p>
@@ -55,6 +107,30 @@
                 </div>
             </div>
         </div>
+
+        <!-- 게임 오버 모달 -->
+        <div class="modal-overlay" id="modal-overlay-over">
+            <div class="modal-content" id="modal-content-over">
+                <div class="game-over-area">
+                    Game over
+                </div>
+                <button type="submit" id="restart-btn">메인으로 돌아가기</button>
+            </div>
+        </div>
+
+        <!-- 홈 이동 확인 모달 -->
+        <div class="modal-overlay" id="home-confirm-modal">
+            <div class="modal-confirm-content">
+                <p class="confirm-message">저장하고 메인으로<br>돌아가시겠습니까?</p>
+                <div class="confirm-actions">
+                    <button id="confirm-yes">예</button>
+                    <button id="confirm-no">아니오</button>
+                </div>
+            </div>
+        </div>
+
+
     </div>
+
 </body>
 </html>
