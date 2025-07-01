@@ -22,20 +22,22 @@ body{
 /* ================== 메인 화면 ================== */
 .view-port {
     height: 100%;
-    background-image: url(/image/bg_sea.png);
-    background-size: contain;
+    background-image: url(/image/deep_Occean.png);
+    background-position: bottom;
+    background-size: cover;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
 
 }
 .view-port .left-box {
     display: flex;
     flex-direction: column;
-    gap: 150px;
+    gap: 30px;
+    justify-content: center;
+    align-items: flex-start;
 }
 .view-port .left-box .content {
-    width: 300px;
     height: 150px;
     /*background-color: #f47c3c; !* 오렌지색 *!*/
     color: white;
@@ -47,37 +49,130 @@ body{
     /*border: 1px solid black;*/
     /*box-shadow: 2px 2px 5px rgba(0,0,0,0.2);*/
 }
-.view-port .left-box .start-button {
-    width: 300px;
-    height: 150px;
-    background-color: #f47c3c; /* 오렌지색 */
-    color: white;
-    font-size: 40px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-    border-radius: 30px;
+
+.view-port .left-box .btn{
+    width: 180px;
+    height: 100px;
+    background-color: transparent;
+    background-image: url('/image/intro-btn-bg.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    font-size: 32px;
 }
-.view-port .left-box .start-button:hover {
-    background: #2980b9;
-    /* 손모양 커서! */
+.view-port .left-box .btn:hover {
+    /*background: #2980b9;
+    !* 손모양 커서! *!*/
+    color: #ffeb3b;
     cursor: pointer;
 }
 .view-port .main-image {
+    background-image: url(/image/break_sheep.png);
     width: 400px;
     height: 500px;
-    background-color: #ffc107; /* 노란색 */
-    display: flex;
-    justify-content: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+/* ================== 게임 설명 화면 ================== */
+#game-description-screen {
+    height: 100%;
+    background-size: contain;
+    background: #7f9aee;
+    border: 2px solid #808080;
+    display: none;
+    justify-content: start;
     align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+    height: 600px;
+    background-image: url(/image/deep_Occean.png);
+}
+
+#game-description-screen #game-description-title {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#game-description-screen #game-description-title #game-description-title-text {
+    font-size: 40px;
+    margin-top: 20px;
+    color: #f1f1f1;
+}
+
+#game-description-screen #home-button {
+    position: absolute;
+    top: 30px;
+    right: 70px;
+    font-size: 28px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+}
+#game-description-screen #home-button:hover {
+    /* 손모양 커서! */
+    cursor: pointer;
+    color: #ffeb3b;
+}
+
+#game-description-screen #game-description {
+    /*background: #1976d2;*/
+    background: rgba(255, 255, 255, 0.2);
+    width: 90%;
+    height: 80%;
+    padding: 20px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#game-description-screen #game-description #game-description-pre {
+    width: 10%;
+    height: 70px;
+    font-size: 30px;
+    border-radius: 20px;
+}
+
+#game-description-screen #game-description #game-description-pre:hover {
+    background: #f47c3c;
+    cursor: pointer;
+}
+
+#game-description-screen #game-description #game-description-next {
+    width: 10%;
+    height: 70px;
+    font-size: 30px;
+    border-radius: 20px;
+}
+
+#game-description-screen #game-description #game-description-next:hover {
+    background: #f47c3c;
+    cursor: pointer;
+}
+
+#game-description-screen #game-description #game-description-text-box {
+    width: 80%;
+    /*border: 2px solid black;*/
+}
+
+#game-description-screen #game-description #game-description-text-box .game-description-text {
+    display: none; /* 기본적으로 모든 콘텐츠는 숨김 */
+}
+
+#game-description-screen #game-description #game-description-text-box .game-description-text.active {
+    display: block; /* active 클래스가 붙은 콘텐츠만 보여줌 */
+}
+
+#game-description-screen #game-description #game-description-text-box p {
+    color: #f1f1f1;
     font-size: 40px;
     font-weight: bold;
-    color: white;
-    border: 1px solid black;
-    text-align: center;
 }
 
 /* ================== 바다 스테이지 ================== */
@@ -108,13 +203,35 @@ body{
         left: -100%;
     }
 }
-#score-area{
-    width: 160px;
-    height: 80px;
-    background-color: red;
+/* 홈 아이콘 버튼 */
+.home-icon-button {
     position: absolute;
-    right: 0;
+    top: 20px;
+    right: 20px;
+    font-size: 28px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+}
+.home-icon-button:hover {
+    color: #ffeb3b;
+}
+
+#score-area{
+    width: 200px;
+    height: 140px;
+    position: absolute;
+    left: 0;
     bottom: 0;
+    background-image: url('/image/score_bg.png');
+    background-size: cover;
+}
+.score{
+    font-size: 2em;
+    text-align: center;
+    line-height: 126px;
 }
 .fish-btn{
     width: 100px;
@@ -126,12 +243,73 @@ body{
     background-color: transparent;
     background-position: center;
 }
+.catch-it{
+    color: #ffeb3b;
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    font-size: 18px;
+    opacity: 0;
+    visibility: hidden;
+}
+.catch-it.active{
+    opacity: 1;
+    visibility: visible;
+    animation: catchFish 0.5s ease-in-out;
+}
+@keyframes catchFish {
+    0%{
+        transform: scale(0);
+    }
+    50%{
+        transform: scale(0.6);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
 .show{
     display: block;
 }
 
+#hp-area{
+    position: absolute;
+    width: 28px;
+    height: 200px;
+    border: 3px solid #B14E05;
+    border-radius: 6px;
+    background-color: #FFD789;
+    bottom: 10px;
+    right: 20px;
+}
+#hp-area::before{
+    content: '';
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    width: 30px;
+    left: 50%;
+    top: -4px;
+    transform: translateX(-50%);
+    height: 203px;
+    border-radius: 8px;
+    border: 3px solid #5B2B2A;
+}
+#hp-bar{
+    width: 22px;
+    height: 100%;
+    background-color: #3DFF00;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    border-radius: 4px;
+    border-top: 2px solid #0BCD00;
+    z-index: 1;
+}
+
 /* ================== 낚시 모달 ================== */
-#modal-overlay {
+.modal-overlay {
     height: 100%;
     width: 100%;
     margin: auto;
@@ -144,31 +322,86 @@ body{
     left: 0;
     z-index: 1;
 }
+
+.click-guide {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;
+    opacity: 0.85;
+    pointer-events: none;
+    display: none;
+    z-index: 10;
+}
+
+#click-left-guide {
+    left: 30px;
+}
+
+#click-right-guide {
+    right: 30px;
+}
+
 #modal-content {
-    width: 60%;
-    height: 80%;
-    background: #7f9aee;
+    width: 480px;
+    height: 420px;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-image: url('../image/easy_bg.png');
+    background-size: cover;      /* 배경이 요소에 꽉 차게 */
+    background-position: center; /* 가운데 정렬 */
+    background-repeat: no-repeat;
 }
-#score-display {
+#modal-content.easy{
+    background-image: url('../image/easy_bg.png');
+}
+#modal-content.normal{
+    background-image: url('../image/normal_bg.png');
+}
+#modal-content.hard{
+    background-image: url('../image/hard_bg.png');
+}
+#modal-content::before{
+    content: '';
+    width: 600px;
+    height: 460px;
     position: absolute;
-    top: 20px;
     left: 50%;
-    transform: translateX(-50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url('/image/modal-frame.png');
+    background-size: cover;
+    background-position: center;
+}
+
+#countdown-text {
+    position: absolute;
+    font-size: 60px;
     font-weight: bold;
-    font-size: 20px;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*transform-origin: center center;*/
+    z-index: 999;
+    display: flex;
+    /*animation: fadeInOut 1s ease-in-out;*/
+}
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: scale(0.5) translate(-50%, -50%); }
+    30% { opacity: 1; transform: scale(1.2) translate(-50%, -50%); }
+    100% { opacity: 0; transform: scale(1) translate(-50%, -50%); }
 }
 
 /* 물고기 이미지 */
 #modal-fish-container {
-    border: 2px solid #000;
     position: absolute;
     width: 70%;
-    height: 300px;
-    top: 70px;
+    height: 260px;
+    top: 32px;
 }
 #modal-fish-container img {
     width: 100%;
@@ -177,9 +410,9 @@ body{
 
 .gauge-container {
     position: absolute;
-    top: 70px; /* 물고기와 같은 y좌표로 맞춤 */
-    right: 26px;
-    width: 60px;
+    top: 80px; /* 물고기와 같은 y좌표로 맞춤 */
+    right: 48px;
+    width: 50px;
     height: 300px;
     border: 2px solid #333;
     border-radius: 10px;
@@ -214,18 +447,63 @@ body{
 
 #modal-click-btn {
     position: absolute;
-    bottom: 25px;
+    bottom: 40px;
     padding: 15px 30px;
     font-size: 20px;
-    background-color: #2196f3;
+    background: linear-gradient(to bottom, #42a5f5, #1e88e5);
     color: white;
+    font-weight: bold;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
+    box-shadow: 0 6px #0d47a1;
+    transition: all 0.2s ease;
     cursor: pointer;
 }
+
+#modal-click-btn:hover {
+    background: linear-gradient(to bottom, #64b5f6, #1976d2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px #0d47a1;
+}
+
+#modal-click-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 4px #0d47a1;
+}
+
 #modal-click-btn:disabled {
-    background-color: #aaa;
+    background: #aaa;
+    box-shadow: none;
     cursor: not-allowed;
+}
+
+@keyframes click-bounce {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+.modal-click-animate {
+    animation: click-bounce 0.2s ease;
+}
+
+#modal-timer {
+    position: absolute;
+    top: 50px;
+    right: 42px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 3px black;
+}
+@keyframes pulse {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.timer-pulse {
+    animation: pulse 0.3s ease-in-out;
 }
 
 /* 결과 박스 스타일 */
@@ -270,4 +548,74 @@ body{
     background-color: #1976d2;
 }
 
+/* ================== 게임 오버 모달 ================== */
+#modal-content-over {
+    width: 400px;
+    height: 260px;
+    background-image: url('/image/over-modal-bg.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.game-over-area{
+    width: 100%;
+    text-align: center;
+    color: #6A0909;
+    font-size: 56px;
+    padding-bottom: 12px;
+    margin-top: 76px;
+}
+#restart-btn{
+    cursor: pointer;
+    font-size: 18px;
+    background-color: transparent;
+}
 
+/* ================ 홈 이동 확인 모달 ================ */
+#home-confirm-modal {
+    background-color: rgba(0,0,0,0.5);
+    z-index: 20;
+}
+
+.modal-confirm-content {
+    width: 280px;
+    background-color: white;
+    padding: 25px 20px;
+    border: 2px solid #444;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.confirm-message {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.confirm-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.confirm-actions button {
+    width: 75px;
+    padding: 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #2196f3;
+    color: white;
+    transition: background-color 0.2s ease;
+}
+
+.confirm-actions button:hover {
+    background-color: #1976d2;
+}
